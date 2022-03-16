@@ -21,6 +21,7 @@ class FragmentMessages : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    /**Create an instance*/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,6 +30,7 @@ class FragmentMessages : Fragment() {
         }
     }
 
+    /**Inflate the UI component from layout in to container*/
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

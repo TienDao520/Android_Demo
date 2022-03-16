@@ -1,14 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentMessages">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewFragMessage"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@string/main" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/imageButtonFragMsgToast"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                android:onClick="onButtonClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/t" />
+
+            <ImageButton
+                android:id="@+id/imageButtonFragMsgSnackbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="onButtonClick"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ss" />
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>
