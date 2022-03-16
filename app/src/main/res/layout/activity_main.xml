@@ -18,7 +18,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerViewMessage"
-        android:name="lwong.example.fragmentdemo.FragmentMessages"
+        android:name="tdao.example.fragmentdemo_tiendao.FragmentMessages"
         android:layout_width="0dp"
         android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,7 +27,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerViewNavigateMain"
-        android:name="lwong.example.fragmentdemo.FragmentNavigate"
+        android:name="tdao.example.fragmentdemo_tiendao.FragmentNavigate"
         android:layout_width="0dp"
         android:layout_height="50dp"
         app:layout_constraintEnd_toEndOf="parent"
