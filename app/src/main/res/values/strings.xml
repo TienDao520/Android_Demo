@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">FragmentDemo</string>
+    <string name="go">Go</string>
+    <string name="addfrag">Add Fragment</string>
+    <string name="removefrag">Remove Fragment</string>
+    <string name="toast">Show Toast Message</string>
+    <string name="snackbar">Show Snackbar Message</string>
+    <string name="snackundo">Undo on Snackbar Pressed</string>
+    <string name="secondactivity">In the second activity</string>
+    <string name="main">In the main activity</string>
+    <string name="undo">Undo is selected!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello from the message fragment</string>
+</resources>
