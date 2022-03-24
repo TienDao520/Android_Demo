@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">NotificationAndSMS_TienDao</string>
+    <string name="sms">Send an SMS</string>
+    <string name="directsms">Send an SMS directly</string>
+    <string name="per_grant">Permission is granted for SMS</string>
+    <string name="per_not_grant">Permission is not granted for SMS</string>
+    <string name="per_not_ask">Not asked for SMS Permission</string>
+    <string name="channel_name">INFO6124NotificationChannel</string>
+    <string name="channnel_desc">Notification Channel used for INFO 6124</string>
+    <string name="basic_not">Send Basic Notification</string>
+    <string name="phone_not">Send Phone Notification</string>
+</resources>
