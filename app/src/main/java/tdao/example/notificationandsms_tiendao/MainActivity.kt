@@ -65,7 +65,31 @@ class MainActivity : AppCompatActivity() {
                 sendNotification(view)
             }
 
+            R.id.buttonPhoneNotification->{
+                sendPhoneNotification(view)
+            }
         }
+    }
+
+    // Notification leading to a phone call
+    fun sendPhoneNotification(view: View?) {
+        val number = Uri.parse("tel:5194524430")
+        val phoneIntent = Intent(Intent.ACTION_DIAL, number)
+        // val pendingIntent = PendingIntent.getActivity(this, 0, phoneIntent, 0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, phoneIntent, PendingIntent.FLAG_IMMUTABLE)
+        val builder: NotificationCompat.Builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.phone_12)
+        //	The line below is equivalent to the line above.  You may build up the Builder either way
+        //       builder.setSmallIcon(R.drawable.android);
+        builder.setContentIntent(pendingIntent)
+        builder.setAutoCancel(true)
+        builder.setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.phone_icon))
+        builder.setContentTitle("You have to call G3001")
+        builder.setContentText("Press to call Cortney!")
+        val notificationManager = getSystemService(
+            NOTIFICATION_SERVICE
+        ) as NotificationManager
+        notificationManager.notify(NOTIFICATION_ID, builder.build())
     }
 
     /**
