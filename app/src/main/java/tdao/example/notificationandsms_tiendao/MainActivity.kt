@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,6 +23,40 @@ class MainActivity : AppCompatActivity() {
         when(view.id) {
             R.id.buttonSMS->{
                 requestPermission()
+            }
+            R.id.buttonDirectSMS->{
+                requestPermissionDirect()
+            }
+        }
+    }
+
+    // Check the permission status
+    private fun requestPermissionDirect() {
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED -> {
+                // permission is granted
+                Toast.makeText(this,getString(R.string.per_grant),Toast.LENGTH_SHORT).show()
+                var smsManager:SmsManager
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S){
+                    // Do something for S (12) and above versions
+                    smsManager = baseContext.getSystemService(SmsManager::class.java)
+                } else{
+                    // do something for phones running an SDK before S (12)
+                    smsManager = SmsManager.getDefault()
+                }
+                Toast.makeText(this, android.os.Build.VERSION.SDK_INT.toString(),Toast.LENGTH_LONG).show()
+
+                smsManager.sendTextMessage("5554", "Test", "Direct SMS Message", null, null)
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.SEND_SMS)-> {
+                // additional rationale is displayed
+                Toast.makeText(this,getString(R.string.per_not_grant),Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+            }
+            else-> {
+                // permission has not been asked yet
+                Toast.makeText(this,getString(R.string.per_not_ask),Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
             }
         }
     }
