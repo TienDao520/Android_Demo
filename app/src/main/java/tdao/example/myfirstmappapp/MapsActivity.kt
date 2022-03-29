@@ -82,6 +82,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        if(mGoogleApiClient != null) {
+            mGoogleApiClient?.connect()
+        }
+    }
+
+    override fun onStop() {
+        mGoogleApiClient?.disconnect()
+        super.onStop()
+    }
+
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
