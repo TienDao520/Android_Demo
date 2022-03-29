@@ -1,6 +1,7 @@
 package tdao.example.myfirstmappapp
 
 import android.Manifest
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
@@ -67,12 +70,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                 // Precise location access granted.
                 Log.i(TAG, "Fine Location accessed")
-//                getCurrentLocation()
+                getCurrentLocation()
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                 // Only approximate location access granted.
                 Log.i(TAG, "Coarse Location accessed")
-//                getCurrentLocation()
+                getCurrentLocation()
             } else -> {
             Log.i(TAG, "No location permissions")
         }
@@ -96,6 +99,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         val sydney = LatLng(-34.0, 151.0)
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+    }
+
+    // gets the current location of the phone
+    private fun getCurrentLocation() {
+        Log.i(TAG, "Getting current location")
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener(this) { lastLocation: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (lastLocation != null) {
+                    loc = LatLng(lastLocation.latitude, lastLocation.longitude)
+                    Log.i(TAG, loc.toString())
+                    // Add a BLUE marker to current location and zoom
+                    // use reverse geocoding to get the current address at your location.
+                    mMap.addMarker(MarkerOptions().position(loc).icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_AZURE)))
+//                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
+                    // animate camera allows zoom
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
+
+                }
+            }
     }
 
     override fun onConnected(p0: Bundle?) {
