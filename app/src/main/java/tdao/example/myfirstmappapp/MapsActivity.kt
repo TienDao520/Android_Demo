@@ -47,6 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
 
     // Used for selecting the Current Place.
     private var mPlacesClient: PlacesClient? = null
+    //5 closest places
     private val M_MAX_ENTRIES = 5
     private lateinit var mLikelyPlaceNames: Array<String>
     private lateinit var mLikelyPlaceAddresses: ArrayList<String>
