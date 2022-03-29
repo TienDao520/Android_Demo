@@ -1,6 +1,8 @@
 package tdao.example.myfirstmappapp
 
 import android.Manifest
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +21,8 @@ import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
+import java.io.IOException
+import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
 
@@ -132,8 +136,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                     // use reverse geocoding to get the current address at your location.
                     mMap.addMarker(MarkerOptions().position(loc).icon(
                         BitmapDescriptorFactory.defaultMarker(
-                            BitmapDescriptorFactory.HUE_AZURE)))
-//                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                            BitmapDescriptorFactory.HUE_AZURE))
+                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     // animate camera allows zoom
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
@@ -150,5 +154,40 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     override fun onConnectionSuspended(p0: Int) {
         // when it suspends location services
         Log.i(TAG, "onConnectionSuspended")
+    }
+
+    /* uses reverse geocoding to determine an address from
+    LatLong position.   Use Geocoding to determine the LatLong position from address
+    In this case we are giving the LatLong of Bud Gardens */
+    private fun getAddress(loc:LatLng): String? {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        var addresses: List<Address>? = null
+        try {
+            //If you want to get more values you can change the maxResult value
+            addresses = geocoder.getFromLocation(loc!!.latitude, loc!!.longitude, 1)
+        } catch (e1: IOException) {
+            Log.e(TAG, getString(R.string.service), e1)
+        } catch (e2: IllegalArgumentException) {
+            Log.e(TAG, getString(R.string.invalid_lat_long)+ ". " +
+                    "Latitude = " + loc!!.latitude +
+                    ", Longitude = " +
+                    loc!!.longitude, e2)
+        }
+        // If the reverse geocode returned an address
+        if (addresses != null) {
+            // Get the first address
+            val address = addresses[0]
+            val addressText = String.format(
+                "%s, %s, %s",
+                address.getAddressLine(0), // If there's a street address, add it
+                address.locality,                 // Locality is usually a city
+                address.countryName)              // The country of the address
+            return addressText
+        }
+        else
+        {
+            Log.e(TAG, getString(R.string.no_address_found))
+            return ""
+        }
     }
 }

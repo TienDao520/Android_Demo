@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MyFirstMappApp</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="service">Location Services not working</string>
+    <string name="invalid_lat_long">Invalid Latitude and Longitude</string>
+    <string name="no_address_found">No address found from that Lat/Lng</string>
 </resources>
