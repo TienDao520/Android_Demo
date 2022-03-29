@@ -142,6 +142,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                     // animate camera allows zoom
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
 
+
+                    // adding two more markers just for fun
+                    mMap.addMarker(MarkerOptions().position(budGardens).icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_GREEN))
+                        .title(getAddress(budGardens)).snippet("Budweiser Gardens"))
+                    mMap.addMarker(MarkerOptions().position(start).icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_VIOLET))
+                        .title(getAddress(start)).snippet("Covent Garden Market"))
+
                 }
             }
     }
