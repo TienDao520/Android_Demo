@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -18,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.libraries.places.api.net.PlacesClient
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
 import java.io.IOException
 import java.util.*
@@ -42,6 +44,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     // Approximate LatLng of Budweiser Gardens
     var budGardens = LatLng(42.98237, -81.25255)
     private val TAG = "MyMaps"
+
+    // Used for selecting the Current Place.
+    private var mPlacesClient: PlacesClient? = null
+    private val M_MAX_ENTRIES = 5
+    private lateinit var mLikelyPlaceNames: Array<String>
+    private lateinit var mLikelyPlaceAddresses: ArrayList<String>
+    private lateinit var mLikelyPlaceLatLngs: ArrayList<LatLng>
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
