@@ -96,9 +96,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         Log.i(TAG, "onMapReady")
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        val sydney = LatLng(-34.0, 151.0)
+//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        // this is where you can configure your google Maps controls that you want
+        mMap.uiSettings.setMyLocationButtonEnabled(true)
+        mMap.uiSettings.setZoomControlsEnabled(true)
+        mMap.setTrafficEnabled(true)
     }
 
     // gets the current location of the phone
