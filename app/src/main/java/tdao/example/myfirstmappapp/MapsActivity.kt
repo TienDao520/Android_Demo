@@ -1,8 +1,12 @@
 package tdao.example.myfirstmappapp
 
+import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.FusedLocationProviderClient
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -17,6 +21,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
+    private var mGoogleApiClient: GoogleApiClient? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var loc: LatLng
+
+    // Fanshawe Oxford St. location
+    // Fanshawe  43.012440, -81.200180
+    // Location to place the bullseye
+    var bullseye = LatLng(42.98, -81.23)
+
+    // Approximate LatLng of Fanshawe Downtown
+    var start = LatLng(42.982600, -81.250000)
+
+    // Approximate LatLng of Budweiser Gardens
+    var budGardens = LatLng(42.98237, -81.25255)
+    private val TAG = "MyMaps"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -27,6 +47,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+                Log.i(TAG, "Fine Location accessed")
+//                getCurrentLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+                Log.i(TAG, "Coarse Location accessed")
+//                getCurrentLocation()
+            } else -> {
+            Log.i(TAG, "No location permissions")
+        }
+        }
     }
 
     /**
