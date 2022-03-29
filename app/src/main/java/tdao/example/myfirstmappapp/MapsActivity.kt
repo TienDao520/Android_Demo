@@ -90,6 +90,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        Log.i(TAG, "onMapReady")
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
@@ -98,10 +99,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     }
 
     override fun onConnected(p0: Bundle?) {
-        TODO("Not yet implemented")
+        // when location services is ready to be called
+        Log.i(TAG, "onConnected")
     }
 
     override fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
+        // when it suspends location services
+        Log.i(TAG, "onConnectionSuspended")
     }
 }
