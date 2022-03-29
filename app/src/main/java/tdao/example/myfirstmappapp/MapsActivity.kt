@@ -1,6 +1,7 @@
 package tdao.example.myfirstmappapp
 
 import android.Manifest
+import android.graphics.Color
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -16,10 +17,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.GroundOverlayOptions
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
 import java.io.IOException
 import java.util.*
@@ -157,6 +155,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                         .image(BitmapDescriptorFactory.fromResource(R.drawable.bullseye))
                         .position(bullseye,1600f, 1600f)
                     mMap.addGroundOverlay(bullsEyeMap)
+                    // draw lines on the map
+                    drawLines()
                 }
             }
     }
@@ -204,5 +204,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
             Log.e(TAG, getString(R.string.no_address_found))
             return ""
         }
+    }
+
+    // Draw a line on the Google Map
+    private  fun drawLines() {
+        mMap.addPolyline(
+            PolylineOptions()
+                .add(start,
+                    budGardens,
+                    LatLng(42.9829, -81.2529),
+                    start)
+                .width(5.0F)
+                .color(Color.BLUE)
+                .geodesic(true))
     }
 }
