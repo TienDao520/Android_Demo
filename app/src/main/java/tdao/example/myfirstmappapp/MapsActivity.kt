@@ -152,7 +152,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                         BitmapDescriptorFactory.defaultMarker(
                             BitmapDescriptorFactory.HUE_VIOLET))
                         .title(getAddress(start)).snippet("Covent Garden Market"))
-
+                    // how to add a image to the map overlay
+                    val bullsEyeMap = GroundOverlayOptions()
+                        .image(BitmapDescriptorFactory.fromResource(R.drawable.bullseye))
+                        .position(bullseye,1600f, 1600f)
+                    mMap.addGroundOverlay(bullsEyeMap)
                 }
             }
     }
