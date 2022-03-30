@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LocalizationDemo</string>
+    <string name="hello">Bonjour</string>
+    <string name="goodbye">Au revoir</string>
+    <string name="thankyou">Merci</string>
+    <string name="howareyou">Comment vas-tu</string>
+    <string name="lang">French</string>
+</resources>

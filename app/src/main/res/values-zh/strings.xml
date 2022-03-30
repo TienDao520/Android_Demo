@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LocalizationDemo</string>
+    <string name="lang">Chinese</string>
+    <string name="hello">你好</string>
+    <string name="goodbye">再见</string>
+    <string name="thankyou">谢谢</string>
+    <string name="howareyou">你好吗</string>
+</resources>

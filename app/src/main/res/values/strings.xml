@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">LocalizationDemo_TienDao</string>
+    <string name="app_name">LocalizationDemo</string>
+    <string name="hello">Hello</string>
+    <string name="goodbye">Goodbye</string>
+    <string name="thankyou">Thank You</string>
+    <string name="howareyou">How are you</string>
+    <string name="lang">English</string>
 </resources>
