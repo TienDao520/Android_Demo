@@ -11,6 +11,7 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -20,10 +21,17 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.PlaceLikelihood
+import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
+import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
 import java.io.IOException
+import java.lang.Exception
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks {
@@ -255,5 +263,65 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                 .width(5.0F)
                 .color(Color.BLUE)
                 .geodesic(true))
+    }
+
+    //GooglePlaces: Step3: getCurrentPlaceLikelihoods
+    private fun getCurrentPlaceLikelihoods() {
+        // Use fields to define the data types to return.
+        val placeFields = Arrays.asList(
+            Place.Field.NAME, Place.Field.ADDRESS,
+            Place.Field.LAT_LNG
+        )
+
+        // Get the likely places - that is, the businesses and other points of interest that
+        // are the best match for the device's current location.
+        val request = FindCurrentPlaceRequest.builder(placeFields).build()
+        val placeResponse: Task<FindCurrentPlaceResponse> =
+            mPlacesClient!!.findCurrentPlace(request)
+        placeResponse.addOnCompleteListener(this,
+            OnCompleteListener<FindCurrentPlaceResponse?> { task ->
+                if (task.isSuccessful) {
+                    val response = task.result
+                    // Set the count, handling cases where less than 5 entries are returned.
+                    val count: Int
+                    if (response.placeLikelihoods.size < M_MAX_ENTRIES) {
+                        count = response.placeLikelihoods.size
+                    } else {
+                        count = M_MAX_ENTRIES
+                    }
+                    println("Found a place")
+                    var i = 0
+                    for (placeLikelihood: PlaceLikelihood in response.placeLikelihoods) {
+                        val currPlace = placeLikelihood.place
+                        mLikelyPlaceNames[i] = (currPlace.name)
+                        Log.i(TAG,currPlace.name)
+                        mLikelyPlaceAddresses.add(currPlace.address)
+                        mLikelyPlaceLatLngs.add(currPlace.latLng)
+                        val currLatLng =
+                            if (mLikelyPlaceLatLngs[i] == null) "" else mLikelyPlaceLatLngs[i].toString()
+                        Log.i(
+                            TAG, String.format(
+                                "Place " + currPlace.name
+                                        + " has likelihood: " + placeLikelihood.likelihood
+                                        + " at " + currLatLng
+                            )
+                        )
+                        i++
+                        if (i > (count - 1)) {
+                            break
+                        }
+                    }
+
+                    // Populate and refresh the RecyclerView
+                    println(mLikelyPlaceNames)
+                    recyclerView.adapter = RecyclerAdapter(mLikelyPlaceNames)  // pass in data to be displayed
+                    viewAdapter.notifyDataSetChanged()
+                } else {
+                    val exception: Exception? = task.getException()
+                    if (exception is ApiException) {
+                        Log.e(TAG, "Place not found: " + exception.statusCode)
+                    }
+                }
+            })
     }
 }
