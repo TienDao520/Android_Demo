@@ -19,6 +19,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.net.PlacesClient
 import tdao.example.myfirstmappapp.databinding.ActivityMapsBinding
 import java.io.IOException
@@ -70,6 +71,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        // GooglePlaces: Step1: Initialize the Places client
+        val apiKey = getString(R.string.maps_api_key)
+        Places.initialize(applicationContext, apiKey)
+        mPlacesClient = Places.createClient(this)
+        recyclerView = findViewById(R.id.recyclerViewPlaces)
+        mLikelyPlaceNames = arrayOf<String>("","","","","")
+        mLikelyPlaceAddresses = ArrayList<String>(5)
+        mLikelyPlaceLatLngs = ArrayList<LatLng>(5)
+
 
         // initialize location services query the place client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
