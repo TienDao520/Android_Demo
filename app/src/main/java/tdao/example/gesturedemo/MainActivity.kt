@@ -7,9 +7,22 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 
 class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+
+    private lateinit var mDetector:GestureDetector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // initialize the GestureDetector
+        mDetector = GestureDetector(this, this)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return if (mDetector.onTouchEvent(event)) {
+            true
+        } else {
+            super.onTouchEvent(event)
+        }
     }
 
     override fun onDown(p0: MotionEvent?): Boolean {
