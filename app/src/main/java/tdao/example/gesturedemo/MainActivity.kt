@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 
-class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
+class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener, GestureDetector.OnDoubleTapListener {
 
     private lateinit var mDetector:GestureDetector
 
@@ -51,6 +51,18 @@ class MainActivity : AppCompatActivity(), GestureDetector.OnGestureListener {
     override fun onFling(p0: MotionEvent?, p1: MotionEvent?, p2: Float, p3: Float): Boolean {
         Log.i("onFling", "onFling: $p2 $p3")
         return true
+    }
+
+    override fun onSingleTapConfirmed(p0: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDoubleTap(p0: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
+    }
+
+    override fun onDoubleTapEvent(p0: MotionEvent?): Boolean {
+        TODO("Not yet implemented")
     }
 
 }
