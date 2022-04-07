@@ -9,6 +9,8 @@ class MainViewModel: ViewModel() {
     //Step3: Create a person object
     var person: Person = Person("",0)
 
+    public var name:String = ""
+    public var count:Int = 0
     // lifecycle
     init {
         Log.i("MainViewModel", "init")
