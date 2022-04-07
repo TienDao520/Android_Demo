@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -81,6 +82,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         mLikelyPlaceAddresses = ArrayList<String>(5)
         mLikelyPlaceLatLngs = ArrayList<LatLng>(5)
 
+        // GooglePlaces: Step2: setting up the recyclerView
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = RecyclerAdapter(mLikelyPlaceNames)  // pass in data to be displayed
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerViewPlaces).apply{
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter  }
 
         // initialize location services query the place client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
