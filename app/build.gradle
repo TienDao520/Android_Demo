@@ -29,6 +29,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    //DataBinding:Step2: add buildFeatures
     buildFeatures {
         dataBinding true
     }
@@ -42,6 +43,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     //Step1: Added lifecycle-viewmodel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    //DataBinding:Step2: add livedata
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
