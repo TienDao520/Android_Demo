@@ -3,8 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- binding object of the ViewModel to the XML Layout -->
     <data>
-
+        <variable
+            name="firstname"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
