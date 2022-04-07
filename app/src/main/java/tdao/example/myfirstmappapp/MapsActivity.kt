@@ -29,7 +29,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
 
+    //Step2: Setup Google API Client
     private var mGoogleApiClient: GoogleApiClient? = null
+    //This will help to get the current Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var loc: LatLng
 
@@ -69,7 +71,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        // initialize location services
+        // initialize location services query the place client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         // Before you perform the actual permission request, check whether your app
@@ -187,9 +189,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     }
 
     /* uses reverse geocoding to determine an address from
-    LatLong position.   Use Geocoding to determine the LatLong position from address
+    LatLong position.
+    Use Geocoding to determine the LatLong position from address
     In this case we are giving the LatLong of Bud Gardens */
     private fun getAddress(loc:LatLng): String? {
+        //Geocoder transfer from location to latlng value
         val geocoder = Geocoder(this, Locale.getDefault())
         var addresses: List<Address>? = null
         try {

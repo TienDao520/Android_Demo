@@ -4,4 +4,5 @@
     <string name="service">Location Services not working</string>
     <string name="invalid_lat_long">Invalid Latitude and Longitude</string>
     <string name="no_address_found">No address found from that Lat/Lng</string>
+    <string name="maps_api_key">AIzaSyC6onxY2BwxH9xrkxqttasDKkunymHKxo4</string>
 </resources>

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="tdao.example.myfirstmappapp">
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<!--    Fine location to get more detail about the location-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
