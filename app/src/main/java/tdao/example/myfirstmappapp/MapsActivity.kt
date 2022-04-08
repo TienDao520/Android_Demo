@@ -203,6 +203,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                     drawLines()
                 }
             }
+        // for google places
+        getCurrentPlaceLikelihoods()
     }
 
     override fun onConnected(p0: Bundle?) {
