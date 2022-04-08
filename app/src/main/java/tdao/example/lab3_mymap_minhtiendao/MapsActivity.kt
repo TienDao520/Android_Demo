@@ -2,6 +2,7 @@ package tdao.example.lab3_mymap_minhtiendao
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.google.android.gms.common.api.GoogleApiClient
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -16,6 +17,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    private val TAG = "MyMaps"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,10 +51,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     }
 
     override fun onConnected(p0: Bundle?) {
-        TODO("Not yet implemented")
+        // when location services is ready to be called
+        Log.i(TAG, "onConnected")
     }
 
     override fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
+        // when it suspends location services
+        Log.i(TAG, "onConnectionSuspended")
     }
 }
