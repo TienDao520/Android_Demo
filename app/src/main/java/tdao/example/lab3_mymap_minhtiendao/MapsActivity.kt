@@ -1,13 +1,16 @@
 package tdao.example.lab3_mymap_minhtiendao
 
+import android.Manifest
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -32,7 +35,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var loc: LatLng
 
+    // Approximate LatLng of a park near you
+    var farnsboroughPark = LatLng(43.0176301,-81.1954531)
+
+    // Approximate LatLng of a grocery store near you
+    var foodBasics = LatLng(43.0078354,-81.2132199)
+
     private val TAG = "MyMaps"
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +55,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        // initialize location services query the place client
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        // Before you perform the actual permission request, check whether your app
+        // already has the permissions, and whether your app needs to show a permission
+        // rationale dialog. For more details, see Request permissions.
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION))
     }
 
     override fun onConnected(p0: Bundle?) {
@@ -54,6 +75,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
     override fun onConnectionSuspended(p0: Int) {
         // when it suspends location services
         Log.i(TAG, "onConnectionSuspended")
+    }
+
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+                Log.i(TAG, "Fine Location accessed")
+                getCurrentLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+                Log.i(TAG, "Coarse Location accessed")
+                getCurrentLocation()
+            } else -> {
+            Log.i(TAG, "No location permissions")
+        }
+        }
     }
 
     override fun onStart() {
@@ -139,13 +179,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                     Log.i(TAG, loc.toString())
                     // Add a BLUE marker to current location and zoom
                     // use reverse geocoding to get the current address at your location.
-                    mMap.addMarker(MarkerOptions().position(loc).icon(
-                        BitmapDescriptorFactory.defaultMarker(
-                            BitmapDescriptorFactory.HUE_AZURE))
-                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                    mMap.addMarker(
+                        MarkerOptions().position(loc).icon(
+                            BitmapDescriptorFactory.defaultMarker(
+                                BitmapDescriptorFactory.HUE_RED
+                            )
+                        )
+                            .title(getAddress(loc))
+                            .snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude)
+                    )
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     // animate camera allows zoom
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 14f))
+
+                    //Added park near area
+                    mMap.addMarker(
+                        MarkerOptions().position(farnsboroughPark).icon(
+                            BitmapDescriptorFactory.defaultMarker(
+                                BitmapDescriptorFactory.HUE_GREEN
+                            )
+                        )
+                            .title(getAddress(farnsboroughPark)).snippet("Farnsborough Park")
+                    )
+
 
                 }
             }
