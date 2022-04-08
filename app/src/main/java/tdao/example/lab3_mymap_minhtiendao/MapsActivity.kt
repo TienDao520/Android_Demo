@@ -2,15 +2,19 @@ package tdao.example.lab3_mymap_minhtiendao
 
 import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.location.FusedLocationProviderClient
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import tdao.example.lab3_mymap_minhtiendao.databinding.ActivityMapsBinding
@@ -21,6 +25,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    //Setup Google API Client
+    private var mGoogleApiClient: GoogleApiClient? = null
+    //This will help to get the current Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var loc: LatLng
 
     private val TAG = "MyMaps"
 
@@ -36,6 +46,30 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
         mapFragment.getMapAsync(this)
     }
 
+    override fun onConnected(p0: Bundle?) {
+        // when location services is ready to be called
+        Log.i(TAG, "onConnected")
+    }
+
+    override fun onConnectionSuspended(p0: Int) {
+        // when it suspends location services
+        Log.i(TAG, "onConnectionSuspended")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if(mGoogleApiClient != null) {
+            mGoogleApiClient?.connect()
+        }
+    }
+
+    override fun onStop() {
+        mGoogleApiClient?.disconnect()
+        super.onStop()
+    }
+
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -47,22 +81,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        Log.i(TAG, "onMapReady")
 
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        // this is where you can configure your google Maps controls that you want
+        mMap.uiSettings.setMyLocationButtonEnabled(true)
+        mMap.uiSettings.setZoomControlsEnabled(true)
+        mMap.setTrafficEnabled(true)
     }
 
-    override fun onConnected(p0: Bundle?) {
-        // when location services is ready to be called
-        Log.i(TAG, "onConnected")
-    }
-
-    override fun onConnectionSuspended(p0: Int) {
-        // when it suspends location services
-        Log.i(TAG, "onConnectionSuspended")
-    }
 
     /* uses reverse geocoding to determine an address from
     LatLong position.
@@ -99,5 +125,29 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
             Log.e(TAG, getString(R.string.no_address_found))
             return ""
         }
+    }
+
+
+    // gets the current location of the phone
+    private fun getCurrentLocation() {
+        Log.i(TAG, "Getting current location")
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener(this) { lastLocation: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (lastLocation != null) {
+                    loc = LatLng(lastLocation.latitude, lastLocation.longitude)
+                    Log.i(TAG, loc.toString())
+                    // Add a BLUE marker to current location and zoom
+                    // use reverse geocoding to get the current address at your location.
+                    mMap.addMarker(MarkerOptions().position(loc).icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_AZURE))
+                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
+                    // animate camera allows zoom
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
+
+                }
+            }
     }
 }
