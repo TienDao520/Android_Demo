@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -29,14 +30,17 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/pokemon_ball" />
+                app:srcCompat="@drawable/pokemon_ball"
+                tools:ignore="DuplicateSpeakableTextCheck" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/app_name"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
         </LinearLayout>
@@ -51,6 +55,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
 
@@ -59,6 +64,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
         </LinearLayout>
@@ -73,6 +79,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
 
@@ -81,6 +88,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
         </LinearLayout>
@@ -95,6 +103,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
 
@@ -103,10 +112,29 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/pokemon_ball"
                 android:scaleType="fitCenter"
                 app:srcCompat="@drawable/pokemon_ball" />
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/move"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/resetBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
