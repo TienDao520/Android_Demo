@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.cards.forEachIndexed { index, card ->
             val button = buttons[index]
             if (card.isMatched) {
-                button.alpha = 0.1f
+                button.alpha = 0.6f
             }
             button.setImageResource(if (card.isFaceUp) card.identifier else R.drawable.pokemon_ball)
         }
