@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         //Returns an existing ViewModel or
         // creates a new one in the scope (usually, a fragment or an activity), associated with this ViewModelProvider
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+
+
     }
 
 
