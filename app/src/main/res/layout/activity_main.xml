@@ -8,6 +8,9 @@
         <variable
             name="firstname"
             type="String" />
+        <variable
+            name="viewModel"
+            type="tdao.example.mvvmandbindingdemo.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,11 +18,12 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+<!--    DataBinding:Step6: Binding data to viewModel-->
         <TextView
             android:id="@+id/textViewPresses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="@{String.valueOf(viewModel.count)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -39,7 +43,7 @@
             android:id="@+id/buttonCountPresses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="onButtonCountPress"
+            android:onClick="@{()-> viewModel.onIncrementCount()}"
             android:text="@string/countpresses"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +68,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonCountPresses" />
+
+        <TextView
+            android:id="@+id/textViewDirectNameBinding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{firstname}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPresses" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
