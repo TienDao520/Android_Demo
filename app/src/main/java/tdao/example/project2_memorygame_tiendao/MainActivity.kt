@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageButton
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import tdao.example.project2_memorygame_tiendao.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,9 +23,19 @@ class MainActivity : AppCompatActivity() {
 
     private val TAG = "MainActivity"
 
+    // setup the binding variable
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_main)
+
+        //DataBinding:Step3: add binding
+        binding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = MainViewModel()
+        binding.executePendingBindings()
+        binding.lifecycleOwner = this
         //Returns an existing ViewModel or
         // creates a new one in the scope (usually, a fragment or an activity), associated with this ViewModelProvider
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
@@ -39,26 +51,32 @@ class MainActivity : AppCompatActivity() {
 
         buttons = listOf(imageButton1,imageButton2,imageButton3,imageButton4,imageButton5,imageButton6,imageButton7,imageButton8)
 
-        val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
-        // Duplicate the current images
-        images.addAll(images)
-        // Mixed the order of images
-        images.shuffle()
+//        val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
+//        // Duplicate the current images
+//        images.addAll(images)
+//        // Mixed the order of images
+//        images.shuffle()
+//
+//        viewModel.cards = images.indices.map { index ->
+//            MemoryCard(images[index])
+//        }
+        Log.i("AAA",viewModel.cards.toString() )
+//        viewModel.cards = images.forEachIndexed{index, image ->
+//
+//        }
 
-        viewModel.cards = buttons.indices.map { index ->
-            MemoryCard(images[index])
-        }
+//        buttons.forEachIndexed { index, button ->
+//            button.setOnClickListener {
+//                Log.i(TAG, "button clicked!!${index.toString()}")
+//
+//                // Update Memory Card models
+////                viewModel.updateModels(index)
+//                // Update the view
+//                updateViews()
+//            }
+//        }
 
-        buttons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                Log.i(TAG, "button clicked!!${index.toString()}")
 
-                // Update Memory Card models
-                viewModel.updateModels(index)
-                // Update the view
-                updateViews()
-            }
-        }
     }
 
     private fun updateViews() {

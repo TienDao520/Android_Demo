@@ -9,10 +9,23 @@ class MainViewModel: ViewModel() {
 
     lateinit var cards: List<MemoryCard>
     private var indexOfSingleSelectedCard: Int? = null
+    var imgDefault =R.drawable.pokemon_ball
 
     // lifecycle
     init {
         Log.i("MainViewModel", "init")
+
+        val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
+        // Duplicate the current images
+        images.addAll(images)
+        // Mixed the order of images
+        images.shuffle()
+
+//        val images_ = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
+
+        cards = images.indices.map { index ->
+            MemoryCard(images[index])
+        }
     }
 
     override fun onCleared() {
@@ -42,6 +55,20 @@ class MainViewModel: ViewModel() {
             indexOfSingleSelectedCard = null
         }
         card.isFaceUp = !card.isFaceUp
+
+        //
+//        cards.forEachIndexed { index, card ->
+//            Log.i("MainViewModel", card.toString())
+//            Log.i("MainViewModelIndex", index.toString())
+//            button.setImageResource(if (card.isFaceUp) card.identifier else R.drawable.pokemon_ball)
+//        }
+
+
+
+        Log.i("MainViewModel", card.toString())
+        Log.i("MainViewModelcard",cards[0].isFaceUp.toString())
+
+
     }
 
 

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="tdao.example.project2_memorygame_tiendao.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -37,8 +39,9 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(0)}"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/pokemon_ball"
+                    app:imageResource="@{viewModel.cards[0].isFaceUp? viewModel.cards[0].identifier: viewModel.imgDefault}"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <ImageButton
@@ -47,6 +50,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/app_name"
+                    android:onClick="@{() -> viewModel.updateModels(1)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
@@ -62,6 +66,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(2)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
 
@@ -71,6 +76,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(3)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
@@ -86,6 +92,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(4)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
 
@@ -95,6 +102,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(5)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
@@ -110,6 +118,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(6)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
 
@@ -119,6 +128,7 @@
                     android:layout_height="100dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/pokemon_ball"
+                    android:onClick="@{() -> viewModel.updateModels(7)}"
                     android:scaleType="fitCenter"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
