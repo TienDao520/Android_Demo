@@ -2,30 +2,39 @@ package tdao.example.project2_memorygame_tiendao
 
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.internal.ContextUtils.getActivity
 
 //ViewModel can be reused in many activites
 class MainViewModel: ViewModel() {
 
-    lateinit var cards: List<MemoryCard>
+    private val _cards = MutableLiveData<List<MemoryCard>>()
+
+    val cards: LiveData<List<MemoryCard>> = _cards
     private var indexOfSingleSelectedCard: Int? = null
     var imgDefault =R.drawable.pokemon_ball
+
+
+    // Duplicate the current images
+
 
     // lifecycle
     init {
         Log.i("MainViewModel", "init")
-
         val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
-        // Duplicate the current images
         images.addAll(images)
         // Mixed the order of images
         images.shuffle()
 
 //        val images_ = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
 
-        cards = images.indices.map { index ->
+        _cards.value = images.indices.map { index ->
             MemoryCard(images[index])
         }
+        Log.i("cards_.value", _cards.value.toString())
+//        _cards.value = ArrayList()
     }
 
     override fun onCleared() {
@@ -34,10 +43,10 @@ class MainViewModel: ViewModel() {
     }
 
     fun updateModels(position: Int) {
-        val card = cards[position]
+        val card = _cards.value?.get(position)
 
         //Error checking:
-        if( card.isFaceUp) {
+        if(card?.isFaceUp == true) {
 //            Toast.makeText(this, "Invalid move!", Toast.LENGTH_SHORT).show()
             return
         }
@@ -54,7 +63,7 @@ class MainViewModel: ViewModel() {
             checkForMatch(indexOfSingleSelectedCard!!, position)
             indexOfSingleSelectedCard = null
         }
-        card.isFaceUp = !card.isFaceUp
+        card?.isFaceUp  = !card?.isFaceUp!!
 
         //
 //        cards.forEachIndexed { index, card ->
@@ -66,15 +75,15 @@ class MainViewModel: ViewModel() {
 
 
         Log.i("MainViewModel", card.toString())
-        Log.i("MainViewModelcard",cards[0].isFaceUp.toString())
-
-
+        cards.value?.get(0)?.identifier.let { Log.i("MainViewModelcards", it.toString()) }
+        cards.value?.get(0)?.isFaceUp.let { Log.i("MainViewModelcards_isFaceUp", it.toString()) }
+        _cards.value = _cards.value
     }
 
 
 
     public fun restoreCards() {
-        for (card in cards) {
+        for (card in _cards.value!!) {
             if (!card.isMatched) {
                 card.isFaceUp = false
             }
@@ -82,10 +91,10 @@ class MainViewModel: ViewModel() {
     }
 
     public fun checkForMatch(position1: Int, position2: Int) : Boolean {
-        if (cards[position1].identifier == cards[position2].identifier) {
-//            Toast.makeText(this, "Match found!!", Toast.LENGTH_SHORT).show()
-            cards[position1].isMatched = true
-            cards[position2].isMatched = true
+        if (_cards.value?.get(position1)?.identifier  == _cards.value?.get(position2)?.identifier) {
+//            Toast.makeText(getPranentActivity(MainActivity.class), "Match found!!", Toast.LENGTH_SHORT).show()
+            _cards.value?.get(position1)?.isMatched = true
+            _cards.value?.get(position2)?.isMatched = true
         }
         return true
     }

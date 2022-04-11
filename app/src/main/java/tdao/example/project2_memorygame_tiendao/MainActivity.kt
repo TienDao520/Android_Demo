@@ -33,23 +33,28 @@ class MainActivity : AppCompatActivity() {
         //DataBinding:Step3: add binding
         binding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = MainViewModel()
-        binding.executePendingBindings()
-        binding.lifecycleOwner = this
+
+
         //Returns an existing ViewModel or
         // creates a new one in the scope (usually, a fragment or an activity), associated with this ViewModelProvider
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
+        binding.lifecycleOwner = this
 
-        imageButton1=findViewById(R.id.imageButton1)
-        imageButton2=findViewById(R.id.imageButton2)
-        imageButton3=findViewById(R.id.imageButton3)
-        imageButton4=findViewById(R.id.imageButton4)
-        imageButton5=findViewById(R.id.imageButton5)
-        imageButton6=findViewById(R.id.imageButton6)
-        imageButton7=findViewById(R.id.imageButton7)
-        imageButton8=findViewById(R.id.imageButton8)
+//        imageButton1=findViewById(R.id.imageButton1)
+//        imageButton2=findViewById(R.id.imageButton2)
+//        imageButton3=findViewById(R.id.imageButton3)
+//        imageButton4=findViewById(R.id.imageButton4)
+//        imageButton5=findViewById(R.id.imageButton5)
+//        imageButton6=findViewById(R.id.imageButton6)
+//        imageButton7=findViewById(R.id.imageButton7)
+//        imageButton8=findViewById(R.id.imageButton8)
+//
+//        buttons = listOf(imageButton1,imageButton2,imageButton3,imageButton4,imageButton5,imageButton6,imageButton7,imageButton8)
 
-        buttons = listOf(imageButton1,imageButton2,imageButton3,imageButton4,imageButton5,imageButton6,imageButton7,imageButton8)
+
+
 
 //        val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
 //        // Duplicate the current images
@@ -60,7 +65,9 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.cards = images.indices.map { index ->
 //            MemoryCard(images[index])
 //        }
-        Log.i("AAA",viewModel.cards.toString() )
+
+//        Log.i("AAA",viewModel.cards.toString() )
+
 //        viewModel.cards = images.forEachIndexed{index, image ->
 //
 //        }
@@ -77,16 +84,30 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
+//        Log.i("MainViewModel", "init")
+//        val images = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
+//        images.addAll(images)
+//        // Mixed the order of images
+//        images.shuffle()
+//
+////        val images_ = mutableListOf(R.drawable.icon_1, R.drawable.icon_2, R.drawable.icon_3, R.drawable.icon_4)
+//
+//        viewModel._cards.value = images.indices.map { index ->
+//            MemoryCard(images[index])
+//        }
+
     }
 
-    private fun updateViews() {
-        viewModel.cards.forEachIndexed { index, card ->
-            val button = buttons[index]
-            if (card.isMatched) {
-                button.alpha = 0.6f
-            }
-            button.setImageResource(if (card.isFaceUp) card.identifier else R.drawable.pokemon_ball)
-        }
-    }
+//    private fun updateViews() {
+//        viewModel.cards.forEachIndexed { index, card ->
+//            val button = buttons[index]
+//            if (card.isMatched) {
+//                button.alpha = 0.6f
+//            }
+//            button.setImageResource(if (card.isFaceUp) card.identifier else R.drawable.pokemon_ball)
+//        }
+//    }
+
+
 
 }

@@ -41,7 +41,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(0)}"
                     android:scaleType="fitCenter"
-                    app:imageResource="@{viewModel.cards[0].isFaceUp? viewModel.cards[0].identifier: viewModel.imgDefault}"
+                    app:imageResource="@{viewModel.cards.get(0).isFaceUp? viewModel.cards.get(0).identifier: viewModel.imgDefault}"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <ImageButton
@@ -52,6 +52,7 @@
                     android:contentDescription="@string/app_name"
                     android:onClick="@{() -> viewModel.updateModels(1)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(1).isFaceUp? viewModel.cards.get(1).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
 
@@ -68,6 +69,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(2)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(2).isFaceUp? viewModel.cards.get(2).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
 
                 <ImageButton
@@ -78,6 +80,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(3)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(3).isFaceUp? viewModel.cards.get(3).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
 
@@ -94,6 +97,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(4)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(4).isFaceUp? viewModel.cards.get(4).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
 
                 <ImageButton
@@ -104,6 +108,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(5)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(5).isFaceUp? viewModel.cards.get(5).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
 
@@ -120,6 +125,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(6)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(6).isFaceUp? viewModel.cards.get(6).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
 
                 <ImageButton
@@ -130,6 +136,7 @@
                     android:contentDescription="@string/pokemon_ball"
                     android:onClick="@{() -> viewModel.updateModels(7)}"
                     android:scaleType="fitCenter"
+                    app:imageResource="@{viewModel.cards.get(7).isFaceUp? viewModel.cards.get(7).identifier: viewModel.imgDefault}"
                     app:srcCompat="@drawable/pokemon_ball" />
             </LinearLayout>
 
