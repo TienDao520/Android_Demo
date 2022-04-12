@@ -1,10 +1,13 @@
 package tdao.example.info6124_project2_tiendao
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,10 @@ class EmailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    //For Email
+    private lateinit var textEmailAddress: TextView
+    private lateinit var textEmailSubject: TextView
+    private lateinit var textEmailMessage: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,5 +62,26 @@ class EmailFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        textEmailAddress= activity?.findViewById(R.id.textEmailAddress)!!
+        textEmailSubject= activity?.findViewById(R.id.textEmailSubject)!!
+        textEmailMessage= activity?.findViewById(R.id.textEmailMessage)!!
+        val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        textEmailAddress.setText(prefsEditor?.getString("emailAddress", ""))
+        textEmailSubject.setText(prefsEditor?.getString("emailSubject", ""))
+        textEmailMessage.setText(prefsEditor?.getString("emailMessage", ""))
+    }
+    override fun onPause() {
+
+        // save the name in the EditText to the shared preference
+        val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)?.edit()
+        prefsEditor?.putString("emailAddress", textEmailAddress.text.toString())
+        prefsEditor?.putString("emailSubject", textEmailSubject.text.toString())
+        prefsEditor?.putString("emailMessage", textEmailMessage.text.toString())
+        prefsEditor?.apply()
+        super.onPause()
     }
 }

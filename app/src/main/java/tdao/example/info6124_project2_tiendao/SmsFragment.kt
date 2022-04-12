@@ -1,10 +1,13 @@
 package tdao.example.info6124_project2_tiendao
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,10 @@ class SmsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    //For SMS
+    private lateinit var textSmsNumber: TextView
+    private lateinit var textSmsMessage: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,5 +63,33 @@ class SmsFragment : Fragment() {
                 }
             }
     }
+
+    override fun onStart() {
+        super.onStart()
+        textSmsNumber= activity?.findViewById(R.id.textSmsNumber)!!
+        textSmsMessage= activity?.findViewById(R.id.textSmsMessage)!!
+        val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)
+        textSmsNumber.setText(prefsEditor?.getString("phoneNumber", ""))
+        textSmsMessage.setText(prefsEditor?.getString("smsMessage", ""))
+        Log.i("AAA", textSmsNumber.text.toString())
+    }
+
+
+    override fun onPause() {
+        Log.i("PPP", textSmsNumber.text.toString())
+        // save the name in the EditText to the shared preference
+        val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)?.edit()
+        prefsEditor?.putString("phoneNumber", textSmsNumber.text.toString())
+        prefsEditor?.putString("smsMessage", textSmsMessage.text.toString())
+        prefsEditor?.apply()
+        super.onPause()
+    }
+
+    override fun onStop() {
+
+        super.onStop()
+    }
+
+
 
 }

@@ -38,6 +38,13 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     private lateinit var textSmsNumber:TextView
     private lateinit var textSmsMessage:TextView
 
+    //For UserData
+    private var userData: UserData = UserData()
+
+    companion object {
+        var phoneNumber:String = ""
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -89,12 +96,15 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     fun onButtonClick(view: View) {
         when(view.id) {
             R.id.mapButton -> {
+//                saveUserData()
                 onMapFragment()
             }
             R.id.emailButton -> {
+//                saveUserData()
                 onEmailFragment()
             }
             R.id.smsButton -> {
+//                saveUserData()
                 onSmsFragment()
             }
         }
@@ -117,6 +127,12 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
             deleteCurrentFragment()
             val fragment = EmailFragment()
             supportFragmentManager.inTransaction { add(R.id.fragmentContainerView, fragment)}
+//            textEmailAddress = findViewById(R.id.textEmailAddress)
+//            textEmailSubject = findViewById(R.id.textEmailSubject)
+//            textEmailMessage = findViewById(R.id.textEmailMessage)
+//            userData.emailAddress = textEmailAddress?.text.toString()
+//            userData.emailSubject = textEmailSubject?.text.toString()
+//            userData.emailMessage = textEmailMessage?.text.toString()
         }
     }
 
@@ -140,8 +156,38 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     }
 
     private fun deleteCurrentFragment() {
-        val currentFragmentContainer = findViewById<FragmentContainerView>(R.id.fragmentContainerView)
-        currentFragmentContainer.removeAllViews()
+        //Get all the current fragments
+        val currentFragment = supportFragmentManager.fragments
+        Log.i(TAG,currentFragment.toString())
+        for (fragment in currentFragment){
+            try {
+                supportFragmentManager.inTransaction { remove(fragment) }
+            }
+            catch(e:Exception){
+
+            }
+        }
+
+//        when {
+//            currentFragment.toString().contains("EmailFragment") -> {
+//                Log.i(TAG,currentFragment.toString())
+////                userData.emailAddress = textEmailAddress?.text.toString()
+////                userData.emailSubject = textEmailSubject?.text.toString()
+////                userData.emailMessage = textEmailMessage?.text.toString()
+//            }
+//            currentFragment.toString().contains("SmsFragment") -> {
+////                userData.phoneNumber = textSmsNumber.text.toString()
+////                userData.smsMessage = textSmsMessage?.text.toString()
+//                Log.i(TAG,currentFragment.toString())
+//            }
+//            currentFragment.toString().contains("MapsFragment") -> {
+//                Log.i(TAG,currentFragment.toString())
+//            }
+//        }
+//        Log.i(TAG, currentFragment.toString())
+
+
+
     }
 
     fun onEmailClick(view: View) {
@@ -210,6 +256,16 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
         textSmsNumber = findViewById(R.id.textSmsNumber)
         textSmsMessage = findViewById(R.id.textSmsMessage)
         requestPermission(textSmsNumber.text as String, textSmsMessage.text as String)
+    }
+
+    fun saveUserData(){
+//        userData.address =
+        userData.phoneNumber = textSmsNumber.text.toString()
+        userData.smsMessage = textSmsMessage?.text.toString()
+        userData.emailAddress = textEmailAddress?.text.toString()
+        userData.emailSubject = textEmailSubject?.text.toString()
+        userData.emailMessage = textEmailMessage?.text.toString()
+
     }
 
 }
