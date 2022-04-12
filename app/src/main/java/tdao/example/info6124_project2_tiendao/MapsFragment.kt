@@ -2,6 +2,7 @@ package tdao.example.info6124_project2_tiendao
 
 import android.Manifest
 import android.content.Context
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,10 +17,12 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
+class MapsFragment : Fragment(), OnMapReadyCallback {
     //This will help to get the current Location
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private val TAG = "MapsFragment"
@@ -28,22 +31,24 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
 //    private lateinit var binding: ActivityMapsBinding
 
 
-    private val callback = OnMapReadyCallback { googleMap ->
 
-        Log.i(TAG, "onMapReady")
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-    }
+
+//    private val callback = OnMapReadyCallback { googleMap ->
+//
+//        Log.i(TAG, "onMapReady")
+//        /**
+//         * Manipulates the map once available.
+//         * This callback is triggered when the map is ready to be used.
+//         * This is where we can add markers or lines, add listeners or move the camera.
+//         * In this case, we just add a marker near Sydney, Australia.
+//         * If Google Play services is not installed on the device, the user will be prompted to
+//         * install it inside the SupportMapFragment. This method will only be triggered once the
+//         * user has installed Google Play services and returned to the app.
+//         */
+//        val sydney = LatLng(-34.0, 151.0)
+//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +61,8 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
+        mapFragment?.getMapAsync(this)
+
 
         // initialize location services query the place client
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -78,27 +84,50 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                 // Precise location access granted.
                 Log.i(TAG, "Fine Location accessed")
-//                getCurrentLocation()
+                getCurrentLocation()
             }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                 // Only approximate location access granted.
                 Log.i(TAG, "Coarse Location accessed")
-//                getCurrentLocation()
+                getCurrentLocation()
             } else -> {
             Log.i(TAG, "No location permissions")
         }
         }
     }
 
+    // gets the current location of the phone
+    private fun getCurrentLocation() {
+        Log.i(TAG, "Getting current location")
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener(requireActivity()) { lastLocation: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (lastLocation != null) {
+                    loc = LatLng(lastLocation.latitude, lastLocation.longitude)
+                    Log.i(TAG, loc.toString())
+                    // Add a BLUE marker to current location and zoom
+                    // use reverse geocoding to get the current address at your location.
+                    mMap.addMarker(MarkerOptions().position(loc).icon(
+                        BitmapDescriptorFactory.defaultMarker(
+                            BitmapDescriptorFactory.HUE_AZURE)))
+//                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
+                    // animate camera allows zoom
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
 
-    override fun onConnected(p0: Bundle?) {
-        // when location services is ready to be called
-        Log.i(TAG, "onConnected")
+                }
+            }
     }
 
-    override fun onConnectionSuspended(p0: Int) {
-        // when it suspends location services
-        Log.i(TAG, "onConnectionSuspended")
+
+    override fun onMapReady(p0: GoogleMap) {
+        mMap = p0
+        Log.i(TAG, "onMapReady")
+
+        // this is where you can configure your google Maps controls that you want
+        mMap.uiSettings.setMyLocationButtonEnabled(true)
+        mMap.uiSettings.setZoomControlsEnabled(true)
+        mMap.setTrafficEnabled(true)
     }
 
 }
