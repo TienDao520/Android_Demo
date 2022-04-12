@@ -1,13 +1,17 @@
 package tdao.example.info6124_project2_tiendao
 
-import androidx.fragment.app.Fragment
-
+import android.Manifest
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.google.android.gms.common.api.GoogleApiClient
-
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -16,6 +20,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
+    //This will help to get the current Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private val TAG = "MapsFragment"
+    private lateinit var mMap: GoogleMap
+    private lateinit var loc: LatLng
+//    private lateinit var binding: ActivityMapsBinding
+
 
     private val callback = OnMapReadyCallback { googleMap ->
 
@@ -46,7 +57,38 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
 
+        // initialize location services query the place client
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        // Before you perform the actual permission request, check whether your app
+        // already has the permissions, and whether your app needs to show a permission
+        // rationale dialog. For more details, see Request permissions.
+        locationPermissionRequest.launch(arrayOf(
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION))
+
+
     }
+
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+                Log.i(TAG, "Fine Location accessed")
+//                getCurrentLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+                Log.i(TAG, "Coarse Location accessed")
+//                getCurrentLocation()
+            } else -> {
+            Log.i(TAG, "No location permissions")
+        }
+        }
+    }
+
 
     override fun onConnected(p0: Bundle?) {
         TODO("Not yet implemented")
