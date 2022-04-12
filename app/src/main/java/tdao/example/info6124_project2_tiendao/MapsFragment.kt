@@ -30,6 +30,7 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
 
     private val callback = OnMapReadyCallback { googleMap ->
 
+        Log.i(TAG, "onMapReady")
         /**
          * Manipulates the map once available.
          * This callback is triggered when the map is ready to be used.
@@ -91,11 +92,13 @@ class MapsFragment : Fragment(), GoogleApiClient.ConnectionCallbacks {
 
 
     override fun onConnected(p0: Bundle?) {
-        TODO("Not yet implemented")
+        // when location services is ready to be called
+        Log.i(TAG, "onConnected")
     }
 
     override fun onConnectionSuspended(p0: Int) {
-        TODO("Not yet implemented")
+        // when it suspends location services
+        Log.i(TAG, "onConnectionSuspended")
     }
 
 }
