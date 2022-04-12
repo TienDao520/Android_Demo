@@ -186,7 +186,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                             )
                         )
                             .title(getAddress(loc))
-                            .snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude)
+                            .snippet("Tien Dao current location")
                     )
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     // animate camera allows zoom
@@ -201,6 +201,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleApiClient.Co
                         )
                             .title(getAddress(farnsboroughPark)).snippet("Farnsborough Park")
                     )
+
+                    //Added grocery near area
+                    val foodBasicsMap = GroundOverlayOptions()
+                        .image(BitmapDescriptorFactory.fromResource(R.drawable.food_basics_logo))
+                        .position(foodBasics,600f, 320f)
+                    mMap.addGroundOverlay(foodBasicsMap)
 
 
                 }
