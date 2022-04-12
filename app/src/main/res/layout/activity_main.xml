@@ -42,7 +42,8 @@
                     android:onClick="@{() -> viewModel.updateModels(0)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(0).isFaceUp? viewModel.cards.get(0).identifier: viewModel.imgDefault}"
-                    tools:ignore="DuplicateSpeakableTextCheck" />
+                    tools:ignore="DuplicateSpeakableTextCheck"
+                    />
 
                 <ImageButton
                     android:id="@+id/imageButton2"
@@ -53,7 +54,7 @@
                     android:onClick="@{() -> viewModel.updateModels(1)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(1).isFaceUp? viewModel.cards.get(1).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    />
             </LinearLayout>
 
             <LinearLayout
@@ -70,7 +71,7 @@
                     android:onClick="@{() -> viewModel.updateModels(2)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(2).isFaceUp? viewModel.cards.get(2).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
 
                 <ImageButton
                     android:id="@+id/imageButton4"
@@ -81,7 +82,7 @@
                     android:onClick="@{() -> viewModel.updateModels(3)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(3).isFaceUp? viewModel.cards.get(3).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +99,7 @@
                     android:onClick="@{() -> viewModel.updateModels(4)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(4).isFaceUp? viewModel.cards.get(4).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
 
                 <ImageButton
                     android:id="@+id/imageButton6"
@@ -109,7 +110,7 @@
                     android:onClick="@{() -> viewModel.updateModels(5)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(5).isFaceUp? viewModel.cards.get(5).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,7 +127,7 @@
                     android:onClick="@{() -> viewModel.updateModels(6)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(6).isFaceUp? viewModel.cards.get(6).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
 
                 <ImageButton
                     android:id="@+id/imageButton8"
@@ -137,7 +138,7 @@
                     android:onClick="@{() -> viewModel.updateModels(7)}"
                     android:scaleType="fitCenter"
                     app:imageResource="@{viewModel.cards.get(7).isFaceUp? viewModel.cards.get(7).identifier: viewModel.imgDefault}"
-                    app:srcCompat="@drawable/pokemon_ball" />
+                    app:srcCompat="@drawable/pokemon_flag" />
             </LinearLayout>
 
         </LinearLayout>
@@ -146,7 +147,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/move"
+            android:text="@{String.valueOf(viewModel.count).concat(` `).concat( @string/move)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
@@ -156,6 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/resetBtn"
+            android:onClick="@{() -> viewModel.resetCards()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />

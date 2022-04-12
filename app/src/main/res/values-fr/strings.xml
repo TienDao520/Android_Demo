@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Project2_MemoryGame_TienDao</string>
+    <string name="pokemon_ball">Pokémon Ball</string>
+    <string name="move">Pas</string>
+    <string name="resetBtn">Réinitialiser le jeu</string>
+</resources>
