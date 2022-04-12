@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/textSmsMessage"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -39,10 +39,10 @@
             android:layout_marginTop="20dp"
             android:text="@string/message"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+            app:layout_constraintTop_toBottomOf="@+id/textSmsNumber" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName2"
+            android:id="@+id/textSmsNumber"
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -57,9 +57,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:onClick="onSmsClick"
             android:text="@string/sendSms"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+            app:layout_constraintTop_toBottomOf="@+id/textSmsMessage" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

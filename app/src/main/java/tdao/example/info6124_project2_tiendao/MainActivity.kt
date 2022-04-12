@@ -1,6 +1,8 @@
 package tdao.example.info6124_project2_tiendao
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +10,9 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
@@ -29,6 +34,10 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     private lateinit var textEmailSubject:TextView
     private lateinit var textEmailMessage:TextView
 
+    //For SMS
+    private lateinit var textSmsNumber:TextView
+    private lateinit var textSmsMessage:TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -47,6 +56,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     override fun onResume() {
         super.onResume()
         // Start Lifecycle of a fragment
+        Log.i(TAG,"onResume")
 
     }
 
@@ -152,6 +162,54 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
         }
+    }
+
+
+
+    private fun requestPermission(address: String, sms_body: String) {
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED -> {
+                // permission is granted
+                Toast.makeText(this,getString(R.string.per_grant),Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("smsto:")  // This ensures only SMS apps respond
+                    putExtra("address", address)
+                    putExtra("sms_body", sms_body)
+                }
+                // use default sms
+//               startActivity(intent)
+                // chooser for sms app
+                startActivity(Intent.createChooser(intent,"SMS"))
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)-> {
+                // additional rationale is displayed
+                // This case will occur when the user change the setting permission
+                Toast.makeText(this,getString(R.string.per_not_grant),Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+            }
+            else-> {
+                // permission has not been asked yet
+                // This case will occur when the user first run application
+                Toast.makeText(this,getString(R.string.per_not_ask),Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+            }
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result:Boolean ->
+        // checking the result of permission
+        if (result) {
+            Toast.makeText(this,getString(R.string.per_grant), Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(this,getString(R.string.per_not_grant), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun onSmsClick(view: View) {
+        textSmsNumber = findViewById(R.id.textSmsNumber)
+        textSmsMessage = findViewById(R.id.textSmsMessage)
+        requestPermission(textSmsNumber.text as String, textSmsMessage.text as String)
     }
 
 }

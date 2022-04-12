@@ -12,6 +12,10 @@
 
     <string name="sendSms">Send SMS</string>
 
+    <string name="per_grant">Permission is granted for SMS</string>
+    <string name="per_not_grant">Permission is not granted for SMS</string>
+    <string name="per_not_ask">Not asked for SMS Permission</string>
+
 
 
 </resources>
