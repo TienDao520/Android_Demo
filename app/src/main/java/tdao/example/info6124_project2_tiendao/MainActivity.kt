@@ -168,15 +168,17 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
         textEmailAddress = findViewById(R.id.textEmailAddress)
         textEmailSubject = findViewById(R.id.textEmailSubject)
         textEmailMessage = findViewById(R.id.textEmailMessage)
+        textCurrentLocation = findViewById(R.id.textCurrentLocation)
         val toAddress = arrayOf("${textEmailAddress.text}")
-        composeEmail(toAddress, "${textEmailSubject.text}", "${textEmailMessage.text}")
+        composeEmail(toAddress, "${textEmailSubject.text}", "${textEmailMessage.text}", "${textCurrentLocation.text}")
     }
 
-    private fun composeEmail(addresses: Array<String>, subject: String, body: String) {
+    private fun composeEmail(emailAddress: Array<String>, subject: String, body: String, address: String) {
         val intent = Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("mailto:") // only email apps should handle this
-            putExtra(Intent.EXTRA_EMAIL, addresses)
+            putExtra(Intent.EXTRA_EMAIL, emailAddress)
             putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, "${address} \n Content: ${body}")
         }
         if (intent.resolveActivity(packageManager) != null) {
             startActivity(intent)
@@ -185,7 +187,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
 
 
 
-    private fun requestPermission(address: String, sms_body: String) {
+    private fun requestPermission(address: String, sms_body: String, currentAddress: String) {
         when {
             ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED -> {
                 // permission is granted
@@ -193,10 +195,9 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
                 val intent = Intent(Intent.ACTION_SENDTO).apply {
                     data = Uri.parse("smsto:")  // This ensures only SMS apps respond
                     putExtra("address", address)
-                    putExtra("sms_body", sms_body)
+                    putExtra("sms_body", "${sms_body} ${currentAddress}")
                 }
-                // use default sms
-//               startActivity(intent)
+
                 // chooser for sms app
                 startActivity(Intent.createChooser(intent,"SMS"))
             }
@@ -230,7 +231,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
         textSmsMessage = findViewById(R.id.textSmsMessage)
         textCurrentLocation = findViewById(R.id.textCurrentLocation)
 
-        requestPermission(textSmsNumber.text as String, textSmsMessage.text as String)
+        requestPermission("${textSmsNumber.text}", "${textSmsMessage.text}" , "${textCurrentLocation.text}")
     }
 
 }
