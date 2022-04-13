@@ -40,8 +40,7 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     private lateinit var textCurrentLocation:TextView
 
 
-    //For UserData
-    private var userData: UserData = UserData()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,15 +94,12 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     fun onButtonClick(view: View) {
         when(view.id) {
             R.id.mapButton -> {
-//                saveUserData()
                 onMapFragment()
             }
             R.id.emailButton -> {
-//                saveUserData()
                 onEmailFragment()
             }
             R.id.smsButton -> {
-//                saveUserData()
                 onSmsFragment()
             }
         }
