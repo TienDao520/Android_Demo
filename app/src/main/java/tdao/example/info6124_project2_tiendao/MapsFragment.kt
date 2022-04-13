@@ -2,6 +2,8 @@ package tdao.example.info6124_project2_tiendao
 
 import android.Manifest
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +23,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.GroundOverlayOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import java.io.IOException
+import java.util.*
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
     //This will help to get the current Location
@@ -28,6 +32,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private val TAG = "MapsFragment"
     private lateinit var mMap: GoogleMap
     private lateinit var loc: LatLng
+    private lateinit var userAddress: String
 //    private lateinit var binding: ActivityMapsBinding
 
 
@@ -107,16 +112,56 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     Log.i(TAG, loc.toString())
                     // Add a BLUE marker to current location and zoom
                     // use reverse geocoding to get the current address at your location.
+                    userAddress= getAddress(loc).toString()
                     mMap.addMarker(MarkerOptions().position(loc).icon(
                         BitmapDescriptorFactory.defaultMarker(
-                            BitmapDescriptorFactory.HUE_AZURE)))
-//                        .title(getAddress(loc)).snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude))
+                            BitmapDescriptorFactory.HUE_AZURE))
+                        .title(getAddress(loc))
+                        .snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude)
+                    )
+
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     // animate camera allows zoom
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
 
                 }
             }
+    }
+    /* uses reverse geocoding to determine an address from
+    LatLong position.
+    Use Geocoding to determine the LatLong position from address
+    In this case we are giving the LatLong of Bud Gardens */
+    private fun getAddress(loc:LatLng): String? {
+        //Geocoder transfer from location to latlng value
+        val geocoder = Geocoder(requireActivity(), Locale.getDefault())
+        var addresses: List<Address>? = null
+        try {
+            //If you want to get more values you can change the maxResult value
+            addresses = geocoder.getFromLocation(loc!!.latitude, loc!!.longitude, 1)
+        } catch (e1: IOException) {
+            Log.e(TAG, getString(R.string.service), e1)
+        } catch (e2: IllegalArgumentException) {
+            Log.e(TAG, getString(R.string.invalid_lat_long)+ ". " +
+                    "Latitude = " + loc!!.latitude +
+                    ", Longitude = " +
+                    loc!!.longitude, e2)
+        }
+        // If the reverse geocode returned an address
+        if (addresses != null) {
+            // Get the first address
+            val address = addresses[0]
+            val addressText = String.format(
+                "%s, %s, %s",
+                address.getAddressLine(0), // If there's a street address, add it
+                address.locality,                 // Locality is usually a city
+                address.countryName)              // The country of the address
+            return addressText
+        }
+        else
+        {
+            Log.e(TAG, getString(R.string.no_address_found))
+            return ""
+        }
     }
 
 
@@ -128,6 +173,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.setMyLocationButtonEnabled(true)
         mMap.uiSettings.setZoomControlsEnabled(true)
         mMap.setTrafficEnabled(true)
+    }
+
+    override fun onPause() {
+        val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)?.edit()
+        prefsEditor?.putString("address", userAddress)
+        prefsEditor?.apply()
+        Log.i(TAG,userAddress)
+
+        super.onPause()
     }
 
 }

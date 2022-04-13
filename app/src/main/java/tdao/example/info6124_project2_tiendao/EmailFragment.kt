@@ -27,6 +27,7 @@ class EmailFragment : Fragment() {
     private lateinit var textEmailAddress: TextView
     private lateinit var textEmailSubject: TextView
     private lateinit var textEmailMessage: TextView
+    private lateinit var textCurrentLocation: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +70,14 @@ class EmailFragment : Fragment() {
         textEmailAddress= activity?.findViewById(R.id.textEmailAddress)!!
         textEmailSubject= activity?.findViewById(R.id.textEmailSubject)!!
         textEmailMessage= activity?.findViewById(R.id.textEmailMessage)!!
+        textCurrentLocation = activity?.findViewById(R.id.textCurrentLocation)!!
+
         val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)
-        textEmailAddress.setText(prefsEditor?.getString("emailAddress", ""))
-        textEmailSubject.setText(prefsEditor?.getString("emailSubject", ""))
-        textEmailMessage.setText(prefsEditor?.getString("emailMessage", ""))
+        textEmailAddress.text = prefsEditor?.getString("emailAddress", "")
+        textEmailSubject.text = prefsEditor?.getString("emailSubject", "")
+        textEmailMessage.text = prefsEditor?.getString("emailMessage", "")
+        textCurrentLocation.text = prefsEditor?.getString("address", "")
+
     }
     override fun onPause() {
 

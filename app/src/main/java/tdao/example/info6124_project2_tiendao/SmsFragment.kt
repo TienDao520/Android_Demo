@@ -27,6 +27,7 @@ class SmsFragment : Fragment() {
     //For SMS
     private lateinit var textSmsNumber: TextView
     private lateinit var textSmsMessage: TextView
+    private lateinit var textCurrentLocation: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +69,13 @@ class SmsFragment : Fragment() {
         super.onStart()
         textSmsNumber= activity?.findViewById(R.id.textSmsNumber)!!
         textSmsMessage= activity?.findViewById(R.id.textSmsMessage)!!
+        textCurrentLocation = activity?.findViewById(R.id.textCurrentLocation)!!
+
         val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)
-        textSmsNumber.setText(prefsEditor?.getString("phoneNumber", ""))
-        textSmsMessage.setText(prefsEditor?.getString("smsMessage", ""))
+        textSmsNumber.text = prefsEditor?.getString("phoneNumber", "")
+        textSmsMessage.text = prefsEditor?.getString("smsMessage", "")
+        textCurrentLocation.text = prefsEditor?.getString("address", "")
+
         Log.i("AAA", textSmsNumber.text.toString())
     }
 

@@ -37,13 +37,12 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     //For SMS
     private lateinit var textSmsNumber:TextView
     private lateinit var textSmsMessage:TextView
+    private lateinit var textCurrentLocation:TextView
+
 
     //For UserData
     private var userData: UserData = UserData()
 
-    companion object {
-        var phoneNumber:String = ""
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,12 +126,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
             deleteCurrentFragment()
             val fragment = EmailFragment()
             supportFragmentManager.inTransaction { add(R.id.fragmentContainerView, fragment)}
-//            textEmailAddress = findViewById(R.id.textEmailAddress)
-//            textEmailSubject = findViewById(R.id.textEmailSubject)
-//            textEmailMessage = findViewById(R.id.textEmailMessage)
-//            userData.emailAddress = textEmailAddress?.text.toString()
-//            userData.emailSubject = textEmailSubject?.text.toString()
-//            userData.emailMessage = textEmailMessage?.text.toString()
         }
     }
 
@@ -167,26 +160,6 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
 
             }
         }
-
-//        when {
-//            currentFragment.toString().contains("EmailFragment") -> {
-//                Log.i(TAG,currentFragment.toString())
-////                userData.emailAddress = textEmailAddress?.text.toString()
-////                userData.emailSubject = textEmailSubject?.text.toString()
-////                userData.emailMessage = textEmailMessage?.text.toString()
-//            }
-//            currentFragment.toString().contains("SmsFragment") -> {
-////                userData.phoneNumber = textSmsNumber.text.toString()
-////                userData.smsMessage = textSmsMessage?.text.toString()
-//                Log.i(TAG,currentFragment.toString())
-//            }
-//            currentFragment.toString().contains("MapsFragment") -> {
-//                Log.i(TAG,currentFragment.toString())
-//            }
-//        }
-//        Log.i(TAG, currentFragment.toString())
-
-
 
     }
 
@@ -255,17 +228,9 @@ class MainActivity : AppCompatActivity(), GoogleApiClient.ConnectionCallbacks {
     fun onSmsClick(view: View) {
         textSmsNumber = findViewById(R.id.textSmsNumber)
         textSmsMessage = findViewById(R.id.textSmsMessage)
+        textCurrentLocation = findViewById(R.id.textCurrentLocation)
+
         requestPermission(textSmsNumber.text as String, textSmsMessage.text as String)
-    }
-
-    fun saveUserData(){
-//        userData.address =
-        userData.phoneNumber = textSmsNumber.text.toString()
-        userData.smsMessage = textSmsMessage?.text.toString()
-        userData.emailAddress = textEmailAddress?.text.toString()
-        userData.emailSubject = textEmailSubject?.text.toString()
-        userData.emailMessage = textEmailMessage?.text.toString()
-
     }
 
 }
