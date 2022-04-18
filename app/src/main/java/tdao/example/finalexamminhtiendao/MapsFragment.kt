@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -19,6 +20,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : Fragment() , OnMapReadyCallback {
+
+    //This will help to get the current Location
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private val TAG = "MapsFragment"
     private lateinit var mMap: GoogleMap
@@ -35,6 +39,9 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
+
+        // initialize location services query the place client
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         // Before you perform the actual permission request, check whether your app
         // already has the permissions, and whether your app needs to show a permission
