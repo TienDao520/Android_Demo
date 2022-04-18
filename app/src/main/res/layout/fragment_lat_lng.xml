@@ -16,6 +16,8 @@
             android:layout_height="50dp"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/latLngMessage" />
+            android:lines="2"
+            android:text="@string/latLngMessage"
+            android:textSize="12sp" />
     </LinearLayout>
 </FrameLayout>

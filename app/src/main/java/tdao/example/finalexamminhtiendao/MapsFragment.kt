@@ -1,6 +1,7 @@
 package tdao.example.finalexamminhtiendao
 
 import android.Manifest
+import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -120,10 +121,15 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
 //                    bundle.putString("location", loc.toString())
 //                    latLngFragment.arguments = bundle
                     var textViewLatLngFragment: TextView? = getActivity()?.findViewById(R.id.textViewLatLngFragment)
-                    textViewLatLngFragment?.setText("Latitude: "+loc.latitude.toString() + "Longtitude: " + loc.longitude.toString())
+                    textViewLatLngFragment?.setText("Latitude: ${loc.latitude} \n Longtitude: ${loc.longitude}")
 
                     var textViewAddressFragment: TextView? = getActivity()?.findViewById(R.id.textViewAddressFragment)
                     textViewAddressFragment?.setText(getAddress(loc).toString())
+                    val prefsEditor = activity?.getSharedPreferences("pref", Context.MODE_PRIVATE)?.edit()
+                    prefsEditor?.putString("lat", loc.latitude.toString())
+                    prefsEditor?.putString("lng", loc.longitude.toString())
+                    prefsEditor?.apply()
+
 
                 }
             }
@@ -165,4 +171,6 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
             return ""
         }
     }
+
+
 }
