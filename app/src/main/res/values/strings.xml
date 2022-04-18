@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FinalExamMinhTienDao</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="latLngMessage">Show Lat Lng</string>
+    <string name="addressMessage">Show address</string>
+    <string name="saveBtn">Save</string>
 </resources>
