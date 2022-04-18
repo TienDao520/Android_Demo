@@ -33,6 +33,7 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
     private val TAG = "MapsFragment"
     private lateinit var mMap: GoogleMap
     private lateinit var loc: LatLng
+    private lateinit var userAddress: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -98,11 +99,11 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
                     Log.i(TAG, loc.toString())
                     // Add a BLUE marker to current location and zoom
                     // use reverse geocoding to get the current address at your location.
-//                    userAddress= getAddress(loc).toString()
+                    userAddress= getAddress(loc).toString()
                     mMap.addMarker(MarkerOptions().position(loc).icon(
                         BitmapDescriptorFactory.defaultMarker(
                             BitmapDescriptorFactory.HUE_AZURE))
-//                        .title(getAddress(loc))
+                        .title(getAddress(loc))
                         .snippet("Your location Lat:" + loc.latitude + ",Lng:" + loc.longitude)
                     )
 
