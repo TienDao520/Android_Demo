@@ -1,10 +1,11 @@
 package tdao.example.finalexamminhtiendao
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,8 @@ class LatLngFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private val TAG = "LatLngFragment"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -36,7 +39,12 @@ class LatLngFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_lat_lng, container, false)
     }
-
+    override fun onStart() {
+        super.onStart()
+        val bundle = arguments
+        Log.i(TAG,bundle.toString())
+//        Log.i(TAG,bundle!!.getString("location").toString())
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

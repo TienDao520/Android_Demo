@@ -4,17 +4,16 @@ import android.Manifest
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
-import androidx.fragment.app.Fragment
-
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -57,6 +56,10 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION))
+
+
+
+
     }
 
     override fun onMapReady(p0: GoogleMap) {
@@ -110,6 +113,17 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(loc))
                     // animate camera allows zoom
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 16f))  //zoom in at 16f
+
+//                    var latLngFragment:LatLngFragment  = LatLngFragment()
+//
+//                    val bundle = Bundle()
+//                    bundle.putString("location", loc.toString())
+//                    latLngFragment.arguments = bundle
+                    var textViewLatLngFragment: TextView? = getActivity()?.findViewById(R.id.textViewLatLngFragment)
+                    textViewLatLngFragment?.setText("Latitude: "+loc.latitude.toString() + "Longtitude: " + loc.longitude.toString())
+
+                    var textViewAddressFragment: TextView? = getActivity()?.findViewById(R.id.textViewAddressFragment)
+                    textViewAddressFragment?.setText(getAddress(loc).toString())
 
                 }
             }
