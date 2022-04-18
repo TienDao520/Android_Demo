@@ -5,4 +5,9 @@
     <string name="latLngMessage">Show Lat Lng</string>
     <string name="addressMessage">Show address</string>
     <string name="saveBtn">Save</string>
+
+    <string name="service">Location Services not working</string>
+    <string name="invalid_lat_long">Invalid Latitude and Longitude</string>
+    <string name="no_address_found">No address found from that Lat/Lng</string>
+    <string name="currentLocation">Current Location</string>
 </resources>
