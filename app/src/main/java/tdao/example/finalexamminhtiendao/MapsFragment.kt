@@ -1,5 +1,6 @@
 package tdao.example.finalexamminhtiendao
 
+import android.Manifest
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -42,5 +44,24 @@ class MapsFragment : Fragment() , OnMapReadyCallback {
         mMap.uiSettings.setMyLocationButtonEnabled(true)
         mMap.uiSettings.setZoomControlsEnabled(true)
         mMap.setTrafficEnabled(true)
+    }
+
+    val locationPermissionRequest = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        when {
+            permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
+                // Precise location access granted.
+                Log.i(TAG, "Fine Location accessed")
+                //getCurrentLocation()
+            }
+            permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
+                // Only approximate location access granted.
+                Log.i(TAG, "Coarse Location accessed")
+                //getCurrentLocation()
+            } else -> {
+            Log.i(TAG, "No location permissions")
+        }
+        }
     }
 }
