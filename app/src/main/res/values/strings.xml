@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FragmentConfirmationDialog_kt</string>
+    <string name="show">Show</string>
+    <string name="alert_dialog_two_buttons_title">Confirmation Dialog Example</string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_hide">Hide</string>
+    <string name="alert_dialog_something">Something</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+    <string name="alert_dialog_progress_text2">145/305 KB</string>
+    <string name="select_dialog">Header title</string>
+    <string name="select_dialog_show">List dialog</string>
+</resources>
