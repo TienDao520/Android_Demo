@@ -17,14 +17,14 @@
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment"
             android:name="tdao.example.listfragmentexample_kt.MenuFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment2"
             android:name="tdao.example.listfragmentexample_kt.TextFragment"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.5" />
     </LinearLayout>

@@ -1,10 +1,11 @@
 package tdao.example.listfragmentexample_kt
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +22,9 @@ class TextFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    var monthL: TextView? = null
+    var monthN:TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +38,12 @@ class TextFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.text_fragment, container, false)
+//        return inflater.inflate(R.layout.text_fragment, container, false)
+        val view = inflater.inflate(R.layout.text_fragment, container, false)
+        monthL = view.findViewById<View>(R.id.MonthL) as TextView
+        monthN = view.findViewById<View>(R.id.MonthN) as TextView
+
+        return view
     }
 
     companion object {
@@ -55,5 +64,10 @@ class TextFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    fun change(txt: String?, txt1: String?) {
+        monthL?.setText(txt)
+        monthN?.setText(txt1)
     }
 }
