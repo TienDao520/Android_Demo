@@ -1,5 +1,6 @@
 package tdao.example.info6130_lab1_minhtiendao
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showIntro() {
-
+        val intent = Intent(this,SecondActivity::class.java)
+        startActivity(intent)
     }
 
     fun doPositiveClick(whichButton:Int) {
