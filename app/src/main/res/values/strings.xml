@@ -3,4 +3,12 @@
     <string name="createBy">Create by Tien Dao</string>
     <string name="takeSurvey">Take Survey</string>
     <string name="introductions">Introduction</string>
+    <string name="survey_title">Please make a choice</string>
+    <string name="survey_result">Survey result: </string>
+    <string name="alert_dialog_ok">Ok</string>
+    <string name="alert_dialog_cancel">Cancel</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
