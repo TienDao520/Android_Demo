@@ -16,20 +16,19 @@
         app:layout_constraintTop_toTopOf="parent"
         android:baselineAligned="false">
 
-        <FrameLayout
-            android:id="@+id/fragment"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_list"
+            android:name="tdao.example.info6130_lab1_minhtiendao.ListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5" />
 
-        </FrameLayout>
-
-        <FrameLayout
-            android:id="@+id/fragment2"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_text"
+            android:name="tdao.example.info6130_lab1_minhtiendao.TextFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5" />
 
-        </FrameLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

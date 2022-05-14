@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import androidx.fragment.app.ListFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -16,10 +19,18 @@ private const val ARG_PARAM2 = "param2"
  * Use the [ListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ListFragment : Fragment() {
+class ListFragment : ListFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    var Levels = arrayOf(R.string.lvl1, R.string.lvl2, R.string.lvl3, R.string.lvl4)
+    var Levels_String = arrayOf("Level 1", "Level 2","Level 3","Level 4")
+    var Texts = arrayOf(R.string.lvl1_string,R.string.lvl2_string,R.string.lvl3_string,R.string.lvl4_string)
+
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +45,26 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val adapter = ArrayAdapter(
+            requireActivity(),
+            android.R.layout.simple_list_item_1, Levels_String
+        )
+        listAdapter = adapter
+
+        return view
+    }
+
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        super.onListItemClick(l, v, position, id)
+        val fragment_text: TextFragment? = activity?.supportFragmentManager?.findFragmentById(R.id.fragment_text) as TextFragment?
+        fragment_text?.change(getString(Levels[position]), "Information : " + getString(Texts[position]))
+
+//        val txt =requireFragmentManager().findFragmentById(R.id.fragment2) as TextFragment?
+//        txt?.change(MonthL[position], "Month : " + MonthN[position])
+
+
+        listView.setSelector(android.R.color.holo_blue_dark)
     }
 
     companion object {

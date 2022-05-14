@@ -7,7 +7,14 @@
     <string name="survey_result">Survey result: </string>
     <string name="alert_dialog_ok">Ok</string>
     <string name="alert_dialog_cancel">Cancel</string>
-
+    <string name="lvl1_string">Immediate Gratification: Pleasure and minimize pain</string>
+    <string name="lvl2_string">Comparative/Personal Achievement: Ego Centeredness, better than, gain advantage</string>
+    <string name="lvl3_string">Contributive: Do good beyond self, Make an optimal positive difference for others</string>
+    <string name="lvl4_string">Ultimate Good: Participate in giving and receiving ultimate meaning, goodness, ideals and love</string>
+    <string name="lvl1">Level 1</string>
+    <string name="lvl2">Level 2</string>
+    <string name="lvl3">Level 3</string>
+    <string name="lvl4">Level 4</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
