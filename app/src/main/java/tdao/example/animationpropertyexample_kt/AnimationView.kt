@@ -175,7 +175,7 @@ class AnimationView : View {
         }*/
     }
 
-//    @SuppressLint("ObjectAnimatorBinding")
+    @SuppressLint("ObjectAnimatorBinding")
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //Declare growAnimator
