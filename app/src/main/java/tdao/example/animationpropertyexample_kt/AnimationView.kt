@@ -133,10 +133,15 @@ class AnimationView : View {
         }
     }
 
+    //Modify the canvas draw
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
+
+
+
         // TODO: consider storing these as member variables to reduce
+        /*
         // allocations per draw cycle.
         val paddingLeft = paddingLeft
         val paddingTop = paddingTop
@@ -163,6 +168,6 @@ class AnimationView : View {
                 paddingLeft + contentWidth, paddingTop + contentHeight
             )
             it.draw(canvas)
-        }
+        }*/
     }
 }
