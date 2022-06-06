@@ -175,7 +175,7 @@ class AnimationView : View {
         }*/
     }
 
-    @SuppressLint("ObjectAnimatorBinding")
+//    @SuppressLint("ObjectAnimatorBinding")
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //Declare growAnimator
@@ -183,7 +183,7 @@ class AnimationView : View {
         growAnimator.duration = ANIMATION_DURATION.toLong()
 
         //Declare shrinkAnimator
-        val shrinkAnimator = ObjectAnimator.ofFloat(this, "radius", width.toFloat())
+        val shrinkAnimator = ObjectAnimator.ofFloat(this, "radius", width.toFloat(), 0f)
         shrinkAnimator.duration = ANIMATION_DURATION.toLong()
         shrinkAnimator.startDelay = ANIMATION_DELAY
 
@@ -195,8 +195,9 @@ class AnimationView : View {
         repeatanimator.repeatMode = ValueAnimator.REVERSE
 
         //combine two animations into a sequence
+//        mAnimatorSet.play(shrinkAnimator)
         mAnimatorSet.play(growAnimator).before(shrinkAnimator)
-        mAnimatorSet.play(repeatanimator).after(shrinkAnimator)
+//        mAnimatorSet.play(repeatanimator).after(shrinkAnimator)
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
