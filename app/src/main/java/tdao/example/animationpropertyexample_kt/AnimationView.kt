@@ -3,6 +3,7 @@ package tdao.example.animationpropertyexample_kt
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -174,6 +175,7 @@ class AnimationView : View {
         }*/
     }
 
+    @SuppressLint("ObjectAnimatorBinding")
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //Declare growAnimator
@@ -196,6 +198,7 @@ class AnimationView : View {
         mAnimatorSet.play(growAnimator).before(shrinkAnimator)
         mAnimatorSet.play(repeatanimator).after(shrinkAnimator)
     }
+
 
 
 
