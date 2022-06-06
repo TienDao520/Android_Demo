@@ -1,6 +1,8 @@
 package tdao.example.animationpropertyexample_kt
 
 import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -8,6 +10,7 @@ import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 
 /**
@@ -136,7 +139,7 @@ class AnimationView : View {
     //Modify the canvas draw
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
+        canvas.drawCircle(mX, mY, mRadius, mPaint)
 
 
 
@@ -170,4 +173,30 @@ class AnimationView : View {
             it.draw(canvas)
         }*/
     }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        //Declare growAnimator
+        val growAnimator = ObjectAnimator.ofFloat(this, "radius", 0f, width.toFloat())
+        growAnimator.duration = ANIMATION_DURATION.toLong()
+
+        //Declare shrinkAnimator
+        val shrinkAnimator = ObjectAnimator.ofFloat(this, "radius", width.toFloat())
+        shrinkAnimator.duration = ANIMATION_DURATION.toLong()
+        shrinkAnimator.startDelay = ANIMATION_DELAY
+
+        //Declare repeatanimator
+        val repeatanimator = ObjectAnimator.ofFloat(this, "radius", 0f,width.toFloat())
+        repeatanimator.duration = ANIMATION_DURATION.toLong()
+        repeatanimator.startDelay = ANIMATION_DELAY
+        repeatanimator.repeatCount =1
+        repeatanimator.repeatMode = ValueAnimator.REVERSE
+
+        //combine two animations into a sequence
+        mAnimatorSet.play(growAnimator).before(shrinkAnimator)
+        mAnimatorSet.play(repeatanimator).after(shrinkAnimator)
+    }
+
+
+
 }
