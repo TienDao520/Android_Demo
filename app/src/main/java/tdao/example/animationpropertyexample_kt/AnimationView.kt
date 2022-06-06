@@ -70,11 +70,11 @@ class AnimationView : View {
     var exampleDrawable: Drawable? = null
 
     constructor(context: Context) : super(context) {
-        init(null, 0)
+//        init(null, 0)
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs, 0)
+//        init(attrs, 0)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
@@ -82,7 +82,7 @@ class AnimationView : View {
         attrs,
         defStyle
     ) {
-        init(attrs, defStyle)
+//        init(attrs, defStyle)
     }
 
     private fun init(attrs: AttributeSet?, defStyle: Int) {
