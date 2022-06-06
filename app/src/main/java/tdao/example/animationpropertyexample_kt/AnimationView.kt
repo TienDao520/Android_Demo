@@ -199,7 +199,27 @@ class AnimationView : View {
         mAnimatorSet.play(repeatanimator).after(shrinkAnimator)
     }
 
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        //return super.onTouchEvent(event: MotionEvent): Boolean {
+        if (event.actionMasked == MotionEvent.ACTION_DOWN){
+            mX = event.x
+            mY = event.y
 
+            if (mAnimatorSet != null && mAnimatorSet.isRunning){
+                mAnimatorSet.cancel()
+            }
+            //start the animcation sequence
+            mAnimatorSet.start()
+        }
+        return super.onTouchEvent(event)
+    }
+
+    fun setRadius(radius:Float){
+        mRadius = radius
+        mPaint.color = Color.GREEN + radius.toInt()/COLOR_ADJUSTER
+        invalidate()
+    }
+}
 
 
 }
