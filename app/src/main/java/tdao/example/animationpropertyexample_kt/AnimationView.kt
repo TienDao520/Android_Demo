@@ -1,5 +1,6 @@
 package tdao.example.animationpropertyexample_kt
 
+import android.animation.AnimatorSet
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -21,6 +22,17 @@ class AnimationView : View {
     private lateinit var textPaint: TextPaint
     private var textWidth: Float = 0f
     private var textHeight: Float = 0f
+
+    //add new variables
+    private val ANIMATION_DURATION = 4000
+    private val ANIMATION_DELAY: Long = 1000
+    private val COLOR_ADJUSTER =5
+    private var mX = 0f
+    private var mY = 0f
+    private var mRadius = 0f
+    private val mPaint = Paint()
+    private val mAnimatorSet = AnimatorSet()
+
 
     /**
      * The text to draw
