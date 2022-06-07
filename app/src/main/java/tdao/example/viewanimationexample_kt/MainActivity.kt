@@ -15,6 +15,11 @@ class MainActivity : AppCompatActivity() {
     var txtFadeIn : TextView? = null
     var animFadeIn : Animation? = null
 
+    //FadeOut: Step1: declare variables
+    var btnFadeOut : Button? = null
+    var txtFadeOut : TextView? = null
+    var animFadeOut : Animation? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
