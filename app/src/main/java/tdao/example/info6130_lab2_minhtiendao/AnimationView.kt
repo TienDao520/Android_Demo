@@ -4,6 +4,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -15,6 +16,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
+import com.google.android.material.internal.ContextUtils.getActivity
 
 /**
  * TODO: document your custom view class.
@@ -38,6 +40,7 @@ class AnimationView : View {
     private var mRadius = 0f
     private val mPaint = Paint()
     private val mAnimatorSet = AnimatorSet()
+    private var flag =0
 
     private val rectf: RectF = RectF(0F, 0F, 400F, 200F)
     /**
@@ -165,7 +168,7 @@ class AnimationView : View {
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         //return super.onTouchEvent(event: MotionEvent): Boolean {
-        if (event.actionMasked == MotionEvent.ACTION_DOWN){
+        if (event.actionMasked == MotionEvent.ACTION_DOWN && flag ==0){
             mX = event.x
             mY = event.y
 
@@ -173,6 +176,9 @@ class AnimationView : View {
                 mAnimatorSet.cancel()
             }
             //start the animcation sequence
+            mAnimatorSet.start()
+            flag =1;
+        } else {
             mAnimatorSet.start()
         }
         return super.onTouchEvent(event)
@@ -185,6 +191,7 @@ class AnimationView : View {
     }
     public fun pauseAnimation() {
         mAnimatorSet.pause()
+
         Log.d("AAA","In pause Stop")
     }
 }
