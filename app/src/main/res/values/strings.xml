@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">ViewAnimationExample_kt</string>
+    <string name="app_name">ViewAnimationExample3</string>
+    <string name="fadein">Fade In</string>
+    <string name="roate">Rotate</string>
+    <string name="fadeout">Fade Out</string>
 </resources>
