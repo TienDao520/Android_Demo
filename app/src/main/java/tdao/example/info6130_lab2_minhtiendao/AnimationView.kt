@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -33,6 +34,8 @@ class AnimationView : View {
     private val mPaint = Paint()
     private val mAnimatorSet = AnimatorSet()
 
+    private val rectf: RectF = RectF(0F, 0F, 400F, 200F)
+    private val footingpaint = Paint ()
     /**
      * The text to draw
      */
@@ -132,36 +135,10 @@ class AnimationView : View {
         }
     }
 
+    //Modify the canvas draw
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        // TODO: consider storing these as member variables to reduce
-        // allocations per draw cycle.
-        val paddingLeft = paddingLeft
-        val paddingTop = paddingTop
-        val paddingRight = paddingRight
-        val paddingBottom = paddingBottom
-
-        val contentWidth = width - paddingLeft - paddingRight
-        val contentHeight = height - paddingTop - paddingBottom
-
-        exampleString?.let {
-            // Draw the text.
-            canvas.drawText(
-                it,
-                paddingLeft + (contentWidth - textWidth) / 2,
-                paddingTop + (contentHeight + textHeight) / 2,
-                textPaint
-            )
-        }
-
-        // Draw the example drawable on top of the text.
-        exampleDrawable?.let {
-            it.setBounds(
-                paddingLeft, paddingTop,
-                paddingLeft + contentWidth, paddingTop + contentHeight
-            )
-            it.draw(canvas)
-        }
+        footingpaint.setARGB(255, 128, 128, 128)
+        canvas.drawRect(rectf, footingpaint)
     }
 }
