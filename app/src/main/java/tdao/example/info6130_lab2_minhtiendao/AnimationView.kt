@@ -1,6 +1,9 @@
 package tdao.example.info6130_lab2_minhtiendao
 
 import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -9,6 +12,8 @@ import android.graphics.RectF
 import android.graphics.drawable.Drawable
 import android.text.TextPaint
 import android.util.AttributeSet
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 
 /**
@@ -35,7 +40,6 @@ class AnimationView : View {
     private val mAnimatorSet = AnimatorSet()
 
     private val rectf: RectF = RectF(0F, 0F, 400F, 200F)
-    private val footingpaint = Paint ()
     /**
      * The text to draw
      */
@@ -135,10 +139,52 @@ class AnimationView : View {
         }
     }
 
+
+
     //Modify the canvas draw
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        footingpaint.setARGB(255, 128, 128, 128)
-        canvas.drawRect(rectf, footingpaint)
+//        mPaint.setARGB(255, 128, 128, 128)
+        canvas.drawRect(mX -mRadius/2, mY-mRadius/2, mX + mRadius/2, mY + mRadius/2, mPaint)
+//        canvas.drawCircle(mX, mY, mRadius, mPaint)
+    }
+
+    @SuppressLint("ObjectAnimatorBinding")
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+
+        //Declare repeatanimator
+        val repeatAnimator = ObjectAnimator.ofFloat(this, "radius", 0f,width.toFloat())
+        repeatAnimator.duration = ANIMATION_DURATION.toLong()
+        repeatAnimator.startDelay = ANIMATION_DELAY
+        repeatAnimator.repeatCount = ValueAnimator.INFINITE
+        repeatAnimator.repeatMode = ValueAnimator.REVERSE
+
+        mAnimatorSet.play(repeatAnimator)
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        //return super.onTouchEvent(event: MotionEvent): Boolean {
+        if (event.actionMasked == MotionEvent.ACTION_DOWN){
+            mX = event.x
+            mY = event.y
+
+            if (mAnimatorSet != null && mAnimatorSet.isRunning){
+                mAnimatorSet.cancel()
+            }
+            //start the animcation sequence
+            mAnimatorSet.start()
+        }
+        return super.onTouchEvent(event)
+    }
+
+    fun setRadius(radius:Float){
+        mRadius = radius
+        mPaint.color = Color.GREEN + radius.toInt()/COLOR_ADJUSTER
+        invalidate()
+    }
+    public fun pauseAnimation() {
+        mAnimatorSet.pause()
+        Log.d("AAA","In pause Stop")
     }
 }
