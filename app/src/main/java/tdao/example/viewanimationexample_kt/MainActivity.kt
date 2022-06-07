@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     var txtFadeOut : TextView? = null
     var animFadeOut : Animation? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,6 +37,18 @@ class MainActivity : AppCompatActivity() {
                 txtFadeIn!!.visibility = View.VISIBLE
                 txtFadeIn!!.alpha = 1f
                 txtFadeIn!!.startAnimation(animFadeIn)
+            }
+        })
+
+        //Fade out
+        btnFadeOut = findViewById(R.id.btnFadeOut) as Button
+        txtFadeOut = findViewById(R.id.txtFadeOut) as TextView
+        animFadeOut = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_out)
+        btnFadeOut!!.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(view: View?)
+            {
+                txtFadeOut!!.visibility = View.VISIBLE
+                txtFadeOut!!.startAnimation(animFadeOut)
             }
         })
     }
