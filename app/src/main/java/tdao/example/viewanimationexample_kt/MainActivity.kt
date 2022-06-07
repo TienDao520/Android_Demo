@@ -19,5 +19,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Fade in
+        btnFadeIn = findViewById(R.id.btnFadeIn) as Button
+        txtFadeIn = findViewById(R.id.txtFadeIn) as TextView
+        txtFadeIn!!.alpha = 0f
+        //FadeIn: Step2: Added the animation from the anim lib folder
+        animFadeIn = AnimationUtils.loadAnimation(applicationContext, R.anim.fade_in)
+        btnFadeIn!!.setOnClickListener(object: View.OnClickListener{
+            override fun onClick(view: View?)
+            {
+                txtFadeIn!!.visibility = View.VISIBLE
+                txtFadeIn!!.alpha = 1f
+                txtFadeIn!!.startAnimation(animFadeIn)
+            }
+        })
     }
 }
