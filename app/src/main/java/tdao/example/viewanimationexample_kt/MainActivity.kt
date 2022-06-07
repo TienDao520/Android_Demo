@@ -20,6 +20,10 @@ class MainActivity : AppCompatActivity() {
     var txtFadeOut : TextView? = null
     var animFadeOut : Animation? = null
 
+    //Rotate: Step1: declare variables
+    var btnRotate : Button? = null
+    var txtRotate : TextView? = null
+    var animRotate : Animation? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,5 +55,17 @@ class MainActivity : AppCompatActivity() {
                 txtFadeOut!!.startAnimation(animFadeOut)
             }
         })
+
+        //rotation
+        btnRotate = findViewById(R.id.btnRotate) as Button?
+        txtRotate = findViewById(R.id.txtRotate) as TextView?
+        // Added the animation from the anim lib folder
+        animRotate = AnimationUtils.loadAnimation (applicationContext, R.anim.rotate)
+        //Added event onclick listener
+        btnRotate?.setOnClickListener(View.OnClickListener {
+            txtRotate?.startAnimation(animRotate)
+//            btnRotate?.startAnimation(animRotate)
+        })
+        //btnRotate?.setOnClickListener(View.OnClickListener {Rotate?.startAnimation(animRotate1)})
     }
 }
