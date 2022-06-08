@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">INFO6130_Midterm_MinhTienDao</string>
+    <string name="author">Minh Tien Dao</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="changeSpeed">Change Speed</string>
 </resources>
