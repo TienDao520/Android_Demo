@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
         nameTextView?.clearAnimation()
         stopSpin?.clearAnimation()
         playMusic()
-        stateFlag =1;
+        mediaPlayer?.playbackParams = mediaPlayer!!.playbackParams.setSpeed(0.75f)
+        stateFlag =1
         stateTextView?.text = "Current State: Speed 1"
     }
     fun onStopBtn(view: View) {
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         nameTextView?.startAnimation(animFlipRepeat)
         stopSpin?.startAnimation(animFadeOutRepeat)
         stopMusic()
-        stateFlag =0;
+        stateFlag =0
         stateTextView?.text = "Current State: Stop"
 
     }
@@ -92,19 +93,23 @@ class MainActivity : AppCompatActivity() {
             0 -> {
                 imageWheel?.startAnimation(animRotate1)
                 stateTextView?.text = "Current State: Speed ${whichButton +1}"
+                mediaPlayer?.playbackParams = mediaPlayer!!.playbackParams.setSpeed(0.75f)
             }
 
             1 -> {
                 imageWheel?.startAnimation(animRotate2)
                 stateTextView?.text  = "Current State: Speed ${whichButton +1}"
+                mediaPlayer?.playbackParams = mediaPlayer!!.playbackParams.setSpeed(1.25f)
             }
             2 -> {
                 imageWheel?.startAnimation(animRotate3)
                 stateTextView?.text = "Current State: Speed ${whichButton +1}"
+                mediaPlayer?.playbackParams = mediaPlayer!!.playbackParams.setSpeed(1.5f)
             }
             3 -> {
                 imageWheel?.startAnimation(animRotate4)
                 stateTextView?.text = "Current State: Speed ${whichButton +1}"
+                mediaPlayer?.playbackParams = mediaPlayer!!.playbackParams.setSpeed(2f)
             }
             else -> {
                 print("Just for test")
