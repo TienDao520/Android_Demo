@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MultiThreadEveryCycle_kt</string>
+    <string name="titleName">Task run every cycle</string>
+
 </resources>
