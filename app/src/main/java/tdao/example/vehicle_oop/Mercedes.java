@@ -2,7 +2,7 @@ package tdao.example.vehicle_oop;
 
 import androidx.annotation.NonNull;
 
-public class Mercedes extends Car{
+public class Mercedes extends Car implements Engine{
 
     private final String seatColor;
     private final String roofTop;
@@ -43,5 +43,20 @@ public class Mercedes extends Car{
 
     public String sound() {
         return String.format("%s", "Mercedes Brrrrrrr");
+    }
+
+    @Override
+    public void goFast() {
+
+    }
+
+    @Override
+    public void goSlow() {
+
+    }
+
+    @Override
+    public void startEngine() {
+
     }
 }

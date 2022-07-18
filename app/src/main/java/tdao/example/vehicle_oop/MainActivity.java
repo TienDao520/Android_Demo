@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         tvInfo2.setText(c1.toString());
         tvInfo3.setText(c200.toString());
         tvInfo4.setText(m1.toString());
+
+        v1 = (Vehicle) c200;
         tvInfo5.setText(v1.sound());
 
     }
