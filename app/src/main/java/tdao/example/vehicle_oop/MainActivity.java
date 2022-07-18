@@ -9,6 +9,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView tvInfo1,tvInfo2,tvInfo3,tvInfo4,tvInfo5;
+    Vehicle v1
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,5 +22,10 @@ public class MainActivity extends AppCompatActivity {
         tvInfo3= (TextView) findViewById(R.id.tv_info3);
         tvInfo4= (TextView) findViewById(R.id.tv_info4);
         tvInfo5= (TextView) findViewById(R.id.tv_info5);
+
+        v1 = new Vehicle("Test",25,120,100,4,false);
+
+        tvInfo1.setText(v1.toString());
+
     }
 }
