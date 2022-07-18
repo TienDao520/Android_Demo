@@ -1,5 +1,7 @@
 package tdao.example.vehicle_oop;
 
+import androidx.annotation.NonNull;
+
 public class Mercedes extends Car{
 
     private final String seatColor;
@@ -27,5 +29,15 @@ public class Mercedes extends Car{
 
     public void setBodyColor(String bodyColor) {
         this.bodyColor = bodyColor;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("%s \n%s %s \n%s %s \n%s %s", super.toString(),
+                "Seat: ", getSeatColor(),
+                "Roof: ", getRoofTop(),
+                "Body Color: ", getBodyColor()
+        );
     }
 }
