@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         tvInfo4.setText(m1.toString());
 
         v1 = (Vehicle) c200;
-        tvInfo5.setText(v1.sound());
+        tvInfo5.setText(v1.sound() + " " +  c200.goFast());
 
     }
 }

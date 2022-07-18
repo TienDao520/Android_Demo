@@ -46,17 +46,17 @@ public class Mercedes extends Car implements Engine{
     }
 
     @Override
-    public void goFast() {
-
+    public String goFast() {
+        return "Getting Fast";
     }
 
     @Override
-    public void goSlow() {
-
+    public String goSlow() {
+        return "Getting Slow";
     }
 
     @Override
-    public void startEngine() {
-
+    public String startEngine() {
+        return "Start Engine";
     }
 }
