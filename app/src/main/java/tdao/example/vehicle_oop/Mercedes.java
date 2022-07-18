@@ -40,4 +40,8 @@ public class Mercedes extends Car{
                 "Body Color: ", getBodyColor()
         );
     }
+
+    public String sound() {
+        return String.format("%s", "Mercedes Brrrrrrr");
+    }
 }

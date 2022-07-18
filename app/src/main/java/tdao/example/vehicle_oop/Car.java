@@ -20,4 +20,8 @@ public class Car extends Vehicle{
     public String toString() {
         return String.format("%s \n%s %s", super.toString(), "Engine: ", getEngineType());
     }
+
+    public String sound() {
+        return String.format("%s", "Car Brrrrrrr");
+    }
 }
