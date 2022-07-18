@@ -1,5 +1,7 @@
 package tdao.example.vehicle_oop;
 
+import androidx.annotation.NonNull;
+
 public class Vehicle extends Object{
     private String name;
     private int speed;
@@ -67,5 +69,20 @@ public class Vehicle extends Object{
     }
     /*****Getter & Setter ***** EMD *****/
 
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("%s %s \n%s %s \n%s %s \n%s %s \n%s %s \n%s %s",
+                "Name: ", getName(),
+                "Speed: ", getSpeed(),
+                "Max Speed: ", getMaxSpeed(),
+                "Fuel Tank: ", getMaxFuelTank(),
+                "Total wheels", getNumberOfWheels(),
+                "ABS: ", isHasAdvanceBrakeSystem()
+                );
+    }
 
+    public String sound() {
+        return String.format("%s", "Brrrrrrr");
+    }
 }

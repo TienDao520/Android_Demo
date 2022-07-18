@@ -40,9 +40,11 @@
         android:id="@+id/tv_info4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="34dp" />
+        app:layout_constraintStart_toEndOf="@+id/tv_info3"
+        app:layout_constraintTop_toBottomOf="@+id/tv_info2" />
 
     <TextView
         android:id="@+id/tv_info5"

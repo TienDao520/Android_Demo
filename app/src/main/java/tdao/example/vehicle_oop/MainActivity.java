@@ -1,5 +1,6 @@
 package tdao.example.vehicle_oop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     TextView tvInfo1,tvInfo2,tvInfo3,tvInfo4,tvInfo5;
-    Vehicle v1
+    Vehicle v1;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         v1 = new Vehicle("Test",25,120,100,4,false);
 
         tvInfo1.setText(v1.toString());
+        tvInfo5.setText(v1.sound());
 
     }
 }
