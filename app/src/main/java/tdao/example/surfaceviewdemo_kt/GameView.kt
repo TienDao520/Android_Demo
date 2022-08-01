@@ -6,6 +6,9 @@ import android.view.SurfaceView
 
 class GameView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : SurfaceView(context, attrs) {
+) : SurfaceView(context, attrs), Runnable {
+    override fun run() {
+        TODO("Not yet implemented")
+    }
 
 }
