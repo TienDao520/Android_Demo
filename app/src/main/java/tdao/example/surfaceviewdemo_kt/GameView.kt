@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 
+//Step1: @JvmOverloads annotation for input parameters of contructors
 class GameView @JvmOverloads constructor(
     private val mContext: Context,
     attrs: AttributeSet? = null
@@ -19,12 +20,16 @@ class GameView @JvmOverloads constructor(
     private val mSurfaceHolder: SurfaceHolder
 
     override fun run() {
-        //Declare canvas variable
+        //Step2-1: Declare canvas variable
         var canvas: Canvas
         while(mRunning){
             // If we can obtain a valid drawing surface...
-            //Check whether a valid Surface is available
+            //Step2-2: Check whether a valid Surface is available
             if (mSurfaceHolder.surface.isValid) {
+
+                //Step2-3: Lock the Canvas
+                canvas = mSurfaceHolder.lockCanvas()
+
 
             }
         }
