@@ -31,6 +31,41 @@ class GameView @JvmOverloads constructor(
     //Step2-5_4: Create mPath
     private val mPath: Path
 
+    //Step2-6_1: Variables for View size
+    private var mViewWidth = 0
+    private var mViewHeight = 0
+
+
+    //Step2-6_2: Calculate View size
+    /**
+     * We cannot get the correct dimensions of views in onCreate because
+     * they have not been inflated yet. This method is called every time the
+     * size of a view changes, including the first time after it has been
+     * inflated.
+     *
+     * @param w Current width of view.
+     * @param h Current height of view.
+     * @param oldw Previous width of view.
+     * @param oldh Previous height of view.
+     */
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mViewWidth = w
+        mViewHeight = h
+        mFlashlightCone = FlashlightCone(mViewWidth, mViewHeight)
+
+        // Set font size proportional to view size.
+        mPaint.textSize = (mViewHeight / 5).toFloat()
+        mBitmap = BitmapFactory.decodeResource(
+            mContext.resources, R.drawable.android
+        )
+    }
+
+
+    /**
+     * Runs in a separate thread.
+     * All drawing happens here.
+     */
     override fun run() {
         //Step2-1: Declare canvas variable
         var canvas: Canvas
