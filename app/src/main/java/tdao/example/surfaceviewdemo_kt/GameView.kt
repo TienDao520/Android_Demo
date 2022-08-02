@@ -35,6 +35,11 @@ class GameView @JvmOverloads constructor(
     private var mViewWidth = 0
     private var mViewHeight = 0
 
+    //Step2-6_3:
+    //RectF holds four float coordinates for a rectangle.
+    // The rectangle is represented by the coordinates of its 4 edges (left, top, right, bottom).
+    private var mWinnerRect: RectF? = null
+
 
     //Step2-6_2: Calculate View size
     /**
@@ -59,8 +64,27 @@ class GameView @JvmOverloads constructor(
         mBitmap = BitmapFactory.decodeResource(
             mContext.resources, R.drawable.android
         )
+        setUpBitmap()
     }
 
+    //Step2-6_4: setUpBitmap
+    /**
+     * Calculates a randomized location for the bitmap
+     * and the winning bounding rectangle.
+     */
+    private fun setUpBitmap() {
+        mBitmapX = Math.floor(
+            Math.random() * (mViewWidth - mBitmap!!.width)
+        ).toInt()
+        mBitmapY = Math.floor(
+            Math.random() * (mViewHeight - mBitmap!!.height)
+        ).toInt()
+        mWinnerRect = RectF(
+            mBitmapX.toFloat(), mBitmapY.toFloat(),
+            (mBitmapX + mBitmap!!.width).toFloat(),
+            (mBitmapY + mBitmap!!.height).toFloat()
+        )
+    }
 
     /**
      * Runs in a separate thread.
