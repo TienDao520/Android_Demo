@@ -1,10 +1,7 @@
 package tdao.example.surfaceviewdemo_kt
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -19,6 +16,14 @@ class GameView @JvmOverloads constructor(
     private var mRunning = false
     private val mSurfaceHolder: SurfaceHolder
 
+    //Step2-4_1: Create mPaint: Paint
+    private val mPaint: Paint
+
+    //Create bitmap variable
+    private var mBitmap: Bitmap? = null
+    private var mBitmapX = 0
+    private var mBitmapY = 0
+
     override fun run() {
         //Step2-1: Declare canvas variable
         var canvas: Canvas
@@ -30,7 +35,10 @@ class GameView @JvmOverloads constructor(
                 //Step2-3: Lock the Canvas
                 canvas = mSurfaceHolder.lockCanvas()
 
-
+                //Step2-4_3: Fill the canvas with color and draw the bitmap.
+                canvas.save()
+                canvas.drawColor(Color.GREEN)
+                canvas.drawBitmap(mBitmap!!, mBitmapX.toFloat(), mBitmapY.toFloat(), mPaint)
             }
         }
 
@@ -39,6 +47,10 @@ class GameView @JvmOverloads constructor(
     init {
 //        mSurfaceHolder = getHolder() //from getHolder()
         mSurfaceHolder = holder //from getHolder()
+        //Step2-4_2: Declare initial mPaint
+        mPaint = Paint()
+        mPaint.color = Color.DKGRAY
+
     }
 
 
