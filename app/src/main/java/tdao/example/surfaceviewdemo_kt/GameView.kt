@@ -1,6 +1,7 @@
 package tdao.example.surfaceviewdemo_kt
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Path
@@ -13,13 +14,25 @@ class GameView @JvmOverloads constructor(
     attrs: AttributeSet? = null
 ) : SurfaceView(mContext, attrs), Runnable {
 
+    //Create a flag for run/pause progress
+    private var mRunning = false
     private val mSurfaceHolder: SurfaceHolder
 
     override fun run() {
-        TODO("Not yet implemented")
+        //Declare canvas variable
+        var canvas: Canvas
+        while(mRunning){
+            // If we can obtain a valid drawing surface...
+            //Check whether a valid Surface is available
+            if (mSurfaceHolder.surface.isValid) {
+
+            }
+        }
+
     }
 
     init {
+//        mSurfaceHolder = getHolder() //from getHolder()
         mSurfaceHolder = holder //from getHolder()
     }
 
