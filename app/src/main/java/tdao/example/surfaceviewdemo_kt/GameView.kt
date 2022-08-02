@@ -2,6 +2,7 @@ package tdao.example.surfaceviewdemo_kt
 
 import android.content.Context
 import android.graphics.*
+import android.os.Build
 import android.util.AttributeSet
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -24,6 +25,12 @@ class GameView @JvmOverloads constructor(
     private var mBitmapX = 0
     private var mBitmapY = 0
 
+    //Step2-5_2: Create mFlashlightCone
+    private var mFlashlightCone: FlashlightCone? = null
+
+    //Step2-5_4: Create mPath
+    private val mPath: Path
+
     override fun run() {
         //Step2-1: Declare canvas variable
         var canvas: Canvas
@@ -40,6 +47,27 @@ class GameView @JvmOverloads constructor(
                 canvas.drawColor(Color.GREEN)
                 canvas.drawBitmap(mBitmap!!, mBitmapX.toFloat(), mBitmapY.toFloat(), mPaint)
 
+
+                //Step2-5_3: Helper variables for performance.
+                val x: Int? = mFlashlightCone?.getX()
+                val y: Int? = mFlashlightCone?.getY()
+                val radius: Int? = mFlashlightCone?.getRadius()
+
+                //Step2-5_6: Add clipping region and fill rest of the canvas with black.
+                //CCW: counter-clockwise
+                mPath.addCircle(x!!.toFloat(), y!!.toFloat(), radius!!.toFloat(), Path.Direction.CCW)
+
+                // The method clipPath(path, Region.Op.DIFFERENCE) was
+                // deprecated in API level 26. The recommended alternative
+                // method is clipOutPath(Path), which is currently available
+                // in API level 26 and higher.
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                    canvas.clipPath(mPath, Region.Op.DIFFERENCE)
+                } else {
+                    canvas.clipOutPath(mPath)
+                }
+                canvas.drawColor(Color.BLACK)
+
             }
         }
 
@@ -51,6 +79,8 @@ class GameView @JvmOverloads constructor(
         //Step2-4_2: Declare initial mPaint
         mPaint = Paint()
         mPaint.color = Color.DKGRAY
+        //Step2-5_5: init value mPath
+        mPath = Path()
 
     }
 
