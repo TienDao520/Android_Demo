@@ -39,6 +39,7 @@ class GameView @JvmOverloads constructor(
                 canvas.save()
                 canvas.drawColor(Color.GREEN)
                 canvas.drawBitmap(mBitmap!!, mBitmapX.toFloat(), mBitmapY.toFloat(), mPaint)
+
             }
         }
 
